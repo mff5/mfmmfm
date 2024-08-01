@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import "/src/styles/pages/member/MemberOffice.css";
 import MemberHeader from "../../components/member/MemberHeader.jsx";
 import MemberFooter from "../../components/member/MemberFooter.jsx";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import KakaoMap from "../../utils/KakaoMap.jsx";
 
 const MemberOffice = () => {
+    const navigate = useNavigate();
     const {no} = useParams();
     const [office, setOffice] = useState([]); // 초기 상태를 null로 설정
     const [reviews, setReviews] = useState([]);
@@ -26,7 +27,12 @@ const MemberOffice = () => {
                 alert("로딩중 오류 발생");
             });
     }, [no]);
-    const formattedPrice = office.price.toLocaleString('ko-KR');
+
+    const price = Number(office.price);
+    const bookClick = () => {
+        console.log("Navigating with office:", office);
+        navigate("/member/book", {state: {office}});
+    }
 
     return (
         <div className="member-office-page page">
@@ -48,11 +54,11 @@ const MemberOffice = () => {
                         {office.content}
                     </p>
                     <p className="member-office-price price">
-                       가격: {formattedPrice} <span className="currency">KRW</span><span className="per">per day</span>
+                       가격: ₩{price.toLocaleString('ko-KR')}<span className="per">per day</span>
                     </p>
                     <p className="member-office-max-occupancy max-occupancy">최대 수용인원: {office.capacity}명</p>
                 </div>
-                <button className="member-office-reserve-button reserve-button">예약하기</button>
+                <button className="member-office-reserve-button reserve-button" onClick={bookClick}>예약하기</button>
                 <div className="member-office-contact contact">
                     <h2>관리자 정보</h2>
                     <p>관리자명: {manager.name}</p>

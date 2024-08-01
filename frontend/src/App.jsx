@@ -6,7 +6,6 @@ import MemberDelete from './pages/member/MemberDelete';
 import MemberLogin from './pages/member/MemberLogin';
 import MemberRegister from './pages/member/MemberRegister';
 import MemberMain from './pages/member/MemberMain';
-import MemberPayment from './pages/member/MemberPayment';
 import MemberSearch from './pages/member/MemberSearch';
 import MemberUpdate from './pages/member/MemberUpdate';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -16,8 +15,9 @@ import PrivateRoute from './components/common/PrivateRoute';
 import ManagerOffice from './pages/manager/ManagerOffice';
 import MemberFindId from "./pages/member/MemberFindId.jsx";
 import MemberResetPw from "./pages/member/MemberResetPw.jsx";
-import MemberFindIdResult from "./pages/member/MemberFindIResult.jsx";
+import MemberFindIdResult from "./pages/member/MemberFindIdResult.jsx";
 import MemberOffice from "./pages/member/MemberOffice.jsx";
+import MemberBook from "./pages/member/MemberBook.jsx";
 
 function App() {
   return (
@@ -33,11 +33,11 @@ function App() {
         <Route path="/member/findIdResult" element={<MemberFindIdResult/>}/>
         <Route path="/member/resetPw" element={<MemberResetPw/>}/>
         <Route path="/member/office/:no" element={<MemberOffice/>}/>
+        <Route path="/member/book" element={<MemberBook/>}/>
 
         {/* 멤버 보호 라우트 */}
         <Route path="/member/update" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberUpdate /></PrivateRoute>} />
         <Route path="/member/delete" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberDelete /></PrivateRoute>} />
-        <Route path="/payment" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberPayment /></PrivateRoute>} />
         <Route path="/search" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberSearch /></PrivateRoute>} />
 
         {/* 매니저 보호 라우트 */}

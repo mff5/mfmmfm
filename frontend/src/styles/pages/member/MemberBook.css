@@ -1,0 +1,119 @@
+.MemberBook-container {
+    max-width: 1000px; /* 너비를 더 넓게 설정 */
+    margin: 20px auto;
+    padding: 40px; /* 패딩 증가 */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* 그림자 크기 증가 */
+    text-align: left;
+}
+
+.MemberBook-logo {
+    text-align: center;
+    margin-bottom: 30px; /* 로고와 타이틀 사이의 간격 증가 */
+}
+
+.MemberBook-logo img {
+    width: 200px; /* 로고 크기 증가 */
+    height: auto;
+}
+
+.MemberBook-title {
+    font-size: 32px; /* 타이틀 크기 증가 */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px; /* 타이틀 아래 간격 증가 */
+    color: #333;
+}
+
+.MemberBook-description {
+    font-size: 18px; /* 설명 텍스트 크기 증가 */
+    text-align: center;
+    margin-bottom: 30px; /* 설명 텍스트 아래 간격 증가 */
+    color: #555;
+}
+
+.order-summary, .cost-details {
+    margin-bottom: 30px; /* 섹션 사이 간격 증가 */
+}
+
+.order-summary h2, .cost-details h2 {
+    font-size: 26px; /* 섹션 타이틀 크기 증가 */
+    margin-bottom: 15px; /* 타이틀 아래 간격 증가 */
+    color: #333;
+}
+
+.order-summary p, .cost-details p {
+    margin: 10px 0; /* 텍스트 간격 증가 */
+    font-size: 20px; /* 텍스트 크기 증가 */
+    color: #555;
+}
+
+.cost-details strong {
+    font-size: 22px; /* 강조 텍스트 크기 증가 */
+    color: #d9534f;
+}
+
+.MemberBook-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 30px; /* 패딩 증가 */
+}
+
+.MemberBook-left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 요소 사이 간격 증가 */
+    width: 65%; /* 넓이 증가 */
+}
+
+.MemberBook-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.MemberBook-detail label {
+    font-weight: bold;
+    margin-bottom: 10px; /* 라벨 아래 간격 증가 */
+    font-size: 18px; /* 라벨 글꼴 크기 증가 */
+}
+
+.MemberBook-detail input,
+.MemberBook-detail select {
+    padding: 15px; /* 입력 및 선택 박스 패딩 증가 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px; /* 글꼴 크기 증가 */
+    width: 100%;
+}
+
+.MemberBook-footer {
+    text-align: center;
+    margin-top: 40px; /* 상단 간격 증가 */
+}
+
+.MemberBook-payment-button {
+    padding: 18px 36px; /* 패딩 증가 */
+    font-size: 20px; /* 글꼴 크기 증가 */
+    font-weight: bold;
+    color: #fff;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 크기 증가 */
+}
+
+.MemberBook-payment-button:hover {
+    background-color: #c9302c;
+}
+
+.security-info {
+    margin-top: 15px; /* 간격 증가 */
+    font-size: 16px; /* 글꼴 크기 증가 */
+    color: #777;
+}
