@@ -1,0 +1,29 @@
+.managerHeader_container {
+    width: 80%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #F5f5f5;
+    display: flex;
+}
+
+.managerHeader_container .header {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.managerHeader_container .logout_button {
+    background: none;
+    border: none;
+    color: #2c3e50;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}

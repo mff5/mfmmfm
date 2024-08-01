@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.backend.review.ReviewMapper">
+    <resultMap id="reviewResultMap" type="com.kh.backend.review.Review">
+        <result property="no" column="no"/>
+        <result property="memberNo" column="member_no"/>
+        <result property="officeNo" column="office_no"/>
+        <result property="rating" column="rating"/>
+        <result property="content" column="content"/>
+        <result property="regDate" column="reg_date"/>
+    </resultMap>
+    <select id="getReviews" resultMap="reviewResultMap">
+        select * from REVIEW where OFFICE_NO = #{officeNo}
+    </select>
+</mapper>
