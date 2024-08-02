@@ -3,72 +3,10 @@ import { setTokens } from '../../utils/auth';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const SocialKakao = () => {
-    const handleKakao = () => {
-        axios.get('http://localhost:8080/auth/kakao/login-url')
-            .then(response => {
-                const kakaoURL = response.data;
-                window.location.href = kakaoURL;
-            })
-            .catch(error => {
-                alert('카카오 로그인 URL을 가져오는 중 오류가 발생했습니다.');
-            });
-    };
-
-    return (
-        <button onClick={handleKakao} className="member-login-kakao-button">카카오 로그인</button>
-    );
-};
-
-const SocialNaver = () => {
-    const handleNaver = () => {
-        axios.get('http://localhost:8080/auth/naver/login-url')
-            .then(response => {
-                const naverURL = response.data;
-                window.location.href = naverURL;
-            })
-            .catch(error => {
-                alert('네이버 로그인 URL을 가져오는 중 오류가 발생했습니다.');
-            });
-    };
-
-    return (
-        <button onClick={handleNaver} className="member-login-naver-button">네이버 로그인</button>
-    );
-};
-
-const SocialGoogle = () => {
-    const handleGoogle = () => {
-        axios.get('http://localhost:8080/auth/google/login-url')
-            .then(response => {
-                const googleURL = response.data;
-                window.location.href = googleURL;
-            })
-            .catch(error => {
-                alert('구글 로그인 URL을 가져오는 중 오류가 발생했습니다.');
-            });
-    };
-
-    return (
-        <button onClick={handleGoogle} className="member-login-google-button">구글 로그인</button>
-    );
-};
+import { SocialGoogle, SocialKakao, SocialNaver } from "../../components/member/Social.jsx";
 
 const MemberLogin = () => {
-    const [formData, setFormData] = useState({
-        id: '',
-        pw: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
+    const [formData, setFormData] = useState({ id: '', pw: '' });
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -82,14 +20,24 @@ const MemberLogin = () => {
         }
     }, [location]);
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8080/auth/member/login', formData, {
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
         })
             .then(response => {
                 const { accessToken, refreshToken } = response.data;
                 setTokens(accessToken, refreshToken);
+                console.log('Stored accessToken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:', localStorage.getItem('accessToken'));
                 navigate('/');
             })
             .catch(error => {
@@ -98,7 +46,7 @@ const MemberLogin = () => {
     };
 
     const logoClick = () => {
-        navigate("/")
+        navigate("/");
     };
 
     return (
@@ -109,11 +57,25 @@ const MemberLogin = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="id">아이디</label>
-                        <input type="text" id="id" name="id" value={formData.id} onChange={handleChange} required />
+                        <input
+                            type="text"
+                            id="id"
+                            name="id"
+                            value={formData.id}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                     <div>
                         <label htmlFor="pw">비밀번호</label>
-                        <input type="password" id="pw" name="pw" value={formData.pw} onChange={handleChange} required />
+                        <input
+                            type="password"
+                            id="pw"
+                            name="pw"
+                            value={formData.pw}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                     <div className="member-login-help-links">
                         <Link to="/member/findId">아이디 찾기</Link>

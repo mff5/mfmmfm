@@ -6,6 +6,7 @@ import PopUpMSG from "../../components/member/PopUpMSG";
 import PopUpQNA from "../../components/member/PopUpQNA";
 import PopupPage from "../../components/member/PopupPage";
 import "../../styles/pages/member/MemberMain.css";
+import {useNavigate} from "react-router-dom";
 
 const initialPopupState = {
   type: null,
@@ -446,15 +447,20 @@ function MemberMain() {
         return state;
     }
   }
+  const navigate = useNavigate();
+  const myClick = () => {
+    navigate("/member/myPage");
+  }
 
   return (
     //render 메인페이지 랜더링//
     <div className="member-main-page">
       <MemberHeader handlePopup={handlePopup} />
       <div className="main-container">
+        <h1 onClick={myClick}>마이페이지</h1>
         <div className="office-item-list">
           {SearchResultMockData.map((item) => (
-            <OfficeItem key={item.id} {...item} />
+              <OfficeItem key={item.id} {...item} />
           ))}{" "}
           <button className={`More-Button ${isButtonVisible ? "visible" : ""}`}>
             더보기
@@ -462,7 +468,7 @@ function MemberMain() {
         </div>
       </div>
       <PopupPage
-        popupComponent={popupState.popupComponent}
+          popupComponent={popupState.popupComponent}
         onClickBackground={popupState.onClickBackground}
       />
       <MemberFooter handlePopup={handlePopup} />

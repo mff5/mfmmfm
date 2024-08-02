@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.backend.member.MemberMapper;
 import com.kh.backend.member.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.kh.backend.admin.Admin;
@@ -22,11 +24,13 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final AuthService authService;
     private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService) {
+    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper) {
         this.jwtUtil = jwtUtil;
         this.authService = authService;
         this.memberService = memberService;
+        this.memberMapper = memberMapper;
     }
 
     @PostMapping("/refresh")
@@ -78,6 +82,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
     }
+
     @GetMapping("/kakao/login-url")
     public ResponseEntity<String> getKakaoLoginUrl() {
         String kakaoLoginUrl = memberService.getKakaoLoginUrl();
@@ -94,6 +99,7 @@ public class AuthController {
             response.sendRedirect("http://localhost:5173/login?message=error");
         }
     }
+
     @GetMapping("/naver/login-url")
     public ResponseEntity<String> getNaverLoginUrl() {
         String naverLoginUrl = memberService.getNaverLoginUrl();
@@ -110,6 +116,7 @@ public class AuthController {
             response.sendRedirect("http://localhost:5173/login?message=error");
         }
     }
+
     @GetMapping("/google/login-url")
     public ResponseEntity<String> getGoogleLoginUrl() {
         String googleLoginURl = memberService.getGoogleLoginUrl();
@@ -126,6 +133,7 @@ public class AuthController {
             response.sendRedirect("http://localhost:5173/login?message=error");
         }
     }
+
     @GetMapping("/idExist")
     public ResponseEntity<?> idExist(@RequestParam String phone) {
         List<String> ids = memberService.idExist(phone);
@@ -134,5 +142,31 @@ public class AuthController {
         } else {
             return ResponseEntity.badRequest().body("아이디가 존재하지 않습니다.");
         }
+    }
+
+    @GetMapping("/member")
+    public ResponseEntity<?> getUserInfo(Authentication authentication) {
+        if (authentication == null) {
+            System.out.println("Authentication object is null");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+        }
+        String name = authentication.getName();
+        System.out.println("Authenticated user: " + name);
+
+        // Member 조회
+        Member member;
+        try {
+            member = memberMapper.findById(name); // ID 또는 username으로 조회
+        } catch (Exception e) {
+            System.out.println("Error fetching user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
+        }
+
+        if (member == null) {
+            System.out.println("Member not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found");
+        }
+
+        return ResponseEntity.ok(member);
     }
 }
