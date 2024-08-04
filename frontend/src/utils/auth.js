@@ -5,7 +5,10 @@ export const setTokens = (accessToken, refreshToken) => {
     console.log('Setting Tokens:', { accessToken, refreshToken });
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+    console.log('Stored accessToken:', localStorage.getItem('accessToken'));
+    console.log('Stored refreshToken:', localStorage.getItem('refreshToken'));
 };
+
 
 export const getAccessToken = () => localStorage.getItem('accessToken');
 export const getRefreshToken = () => localStorage.getItem('refreshToken');
@@ -46,6 +49,8 @@ export const isAuthenticated = async () => {
     return decodedToken.exp > currentTime;
 };
 
+
+
 export const refreshAccessToken = async () => {
     try {
         const response = await axios.post('http://localhost:8080/auth/refresh', {
@@ -61,11 +66,16 @@ export const refreshAccessToken = async () => {
     }
 };
 
-// Logging the token expiry for debugging purposes
-export const logTokenExpiry = () => {
+export const getNo = () => {
     const accessToken = getAccessToken();
     if (accessToken) {
-        const decoded = jwtDecode(accessToken);
-        console.log('Access Token Expiry:', new Date(decoded.exp * 1000));
+        try {
+            const decodedToken = jwtDecode(accessToken);
+            return decodedToken.no;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
     }
+    return null;
 };

@@ -29,15 +29,14 @@ const MemberLogin = () => {
         e.preventDefault();
         axios.post('http://localhost:8080/auth/member/login', formData, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                 'Content-Type': 'application/json'
             },
-            withCredentials: true
+            withCredentials: true // 필요시 사용
         })
             .then(response => {
                 const { accessToken, refreshToken } = response.data;
                 setTokens(accessToken, refreshToken);
-                console.log('Stored accessToken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:', localStorage.getItem('accessToken'));
+                console.log('Stored accessToken:', localStorage.getItem('accessToken'));
                 navigate('/');
             })
             .catch(error => {

@@ -451,6 +451,10 @@ function MemberMain() {
   const myClick = () => {
     navigate("/member/myPage");
   }
+  useEffect(() => {
+    console.log("main token="+localStorage.getItem('accessToken'));
+    console.log("main refreshToken="+localStorage.getItem('refreshToken'));
+  }, []);
 
   return (
     //render 메인페이지 랜더링//

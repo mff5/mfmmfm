@@ -17,8 +17,10 @@ import MemberFindId from "./pages/member/MemberFindId.jsx";
 import MemberResetPw from "./pages/member/MemberResetPw.jsx";
 import MemberFindIdResult from "./pages/member/MemberFindIdResult.jsx";
 import MemberOffice from "./pages/member/MemberOffice.jsx";
-import MemberBook from "./pages/member/MemberBook.jsx";
+import MemberPayment from "./pages/member/MemberPayment.jsx";
 import MemberMyPage from "./pages/member/MemberMyPage.jsx";
+import ManagerTest from "./pages/manager/ManagerTest.jsx";
+import ManagerPage from "./pages/manager/ManagerPage.jsx";
 
 function App() {
   return (
@@ -34,8 +36,12 @@ function App() {
         <Route path="/member/findIdResult" element={<MemberFindIdResult/>}/>
         <Route path="/member/resetPw" element={<MemberResetPw/>}/>
         <Route path="/member/office/:no" element={<MemberOffice/>}/>
-        <Route path="/member/book" element={<MemberBook/>}/>
+        <Route path="/member/book" element={<MemberPayment/>}/>
         <Route path="/member/myPage" element={<MemberMyPage/>}/>
+
+        <Route path="/managerTest" element={<ManagerTest/>}/>
+
+        <Route path="/managerPage" element={<ManagerPage/>}/>
 
         {/* 멤버 보호 라우트 */}
         <Route path="/member/update" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberUpdate /></PrivateRoute>} />

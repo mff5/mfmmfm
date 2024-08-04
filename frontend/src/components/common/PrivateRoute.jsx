@@ -19,12 +19,18 @@ const PrivateRoute = ({ children, requiredRole }) => {
     const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
-        const checkAuth = async () => {
-            const isAuth = await isAuthenticated();
-            setAuthStatus(isAuth);
-        };
-        checkAuth();
+        (async () => {
+            try {
+                const isAuth = await isAuthenticated();
+                console.log('Authentication status:', isAuth);
+                setAuthStatus(isAuth);
+            } catch (error) {
+                console.error('Error checking authentication status:', error);
+            }
+        })();
     }, []);
+
+
 
     if (authStatus === null) {
         return <></>;
