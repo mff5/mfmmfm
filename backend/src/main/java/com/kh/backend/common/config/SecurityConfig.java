@@ -40,6 +40,8 @@ public class SecurityConfig {
                     return config;
                 }))
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/member/payment/**").permitAll()
                         .requestMatchers("/auth/member").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/auth/kakao/**").permitAll()

@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// JwtAuthFilter.java
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
 
@@ -26,16 +27,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String accessToken = getAccessTokenFromRequest(request);
         System.out.println("accessToken : " + accessToken);
         if (accessToken != null && jwtUtil.validateAccessToken(accessToken)) {
-            String username = jwtUtil.getUsernameFromAccessToken(accessToken);
-            String role = jwtUtil.getRoleFromAccessToken(accessToken);
-            int no = jwtUtil.getNoFromAccessToken(accessToken);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    username, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
-            authentication.setDetails(no);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            try {
+                String username = jwtUtil.getUsernameFromAccessToken(accessToken);
+                String role = jwtUtil.getRoleFromAccessToken(accessToken);
+                int no = jwtUtil.getNoFromAccessToken(accessToken);
+
+                System.out.println("Extracted username: " + username);
+                System.out.println("Extracted role: " + role);
+                System.out.println("Extracted no: " + no);
+
+                if (username == null) {
+                    throw new IllegalArgumentException("Username extracted from token is null");
+                }
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        username, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
+                authentication.setDetails(no);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                System.out.println("Authenticated user: " + username);
+            } catch (Exception e) {
+                System.out.println("Error during token processing: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Invalid or missing token");
         }
         filterChain.doFilter(request, response);
     }
+
 
     private String getAccessTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

@@ -1,9 +1,12 @@
 package com.kh.backend.common.auth;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.backend.payment.Payment;
+import com.kh.backend.payment.PaymentService;
 import com.kh.backend.member.MemberMapper;
 import com.kh.backend.member.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,12 +28,14 @@ public class AuthController {
     private final AuthService authService;
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+    private final PaymentService paymentService;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper) {
+    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, PaymentService paymentService) {
         this.jwtUtil = jwtUtil;
         this.authService = authService;
         this.memberService = memberService;
         this.memberMapper = memberMapper;
+        this.paymentService = paymentService;
     }
 
     @PostMapping("/refresh")
@@ -49,8 +54,10 @@ public class AuthController {
 
     @PostMapping("/member/login")
     public ResponseEntity<?> loginMember(@RequestBody LoginRequest loginRequest) {
+        System.out.println("Fetching member with ID: " + loginRequest.getId());
         Member member = authService.authenticateMember(loginRequest.getId(), loginRequest.getPw());
         if (member != null) {
+            System.out.println("Login successful for member ID: " + member.getId()); // 로그 추가
             String accessToken = jwtUtil.generateAccessToken(member.getId(), "ROLE_MEMBER", member.getNo());
             String refreshToken = jwtUtil.generateRefreshToken(member.getId(), "ROLE_MEMBER", member.getNo());
             return ResponseEntity.ok(new AuthResponse(accessToken, refreshToken, member.getNo()));
@@ -58,6 +65,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
     }
+
 
     @PostMapping("/manager/login")
     public ResponseEntity<?> loginManager(@RequestBody LoginRequest loginRequest) {
@@ -152,21 +160,31 @@ public class AuthController {
         }
         String name = authentication.getName();
         System.out.println("Authenticated user: " + name);
-
-        // Member 조회
-        Member member;
-        try {
-            member = memberMapper.findById(name); // ID 또는 username으로 조회
-        } catch (Exception e) {
-            System.out.println("Error fetching user: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching user");
-        }
-
+        Member member = memberMapper.findById(name);
         if (member == null) {
-            System.out.println("Member not found");
+            System.out.println("Member not found with name: " + name);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found");
         }
+        int memberNo = member.getNo();
+        System.out.println("Member number: " + memberNo);
 
-        return ResponseEntity.ok(member);
+        Map<String, Object> response = new HashMap<>();
+
+        List<Payment> payments = null;
+        try {
+            payments = paymentService.getPaymentsByMemberNo(memberNo);
+            System.out.println("Payments retrieved: " + payments.size());
+        } catch (Exception e) {
+            System.out.println("Error fetching payments: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching payments");
+        }
+
+        response.put("member", member);
+        System.out.println("Member details: " + member);
+        response.put("payments", payments);
+
+        return ResponseEntity.ok(response);
     }
+
 }

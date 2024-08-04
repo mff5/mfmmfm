@@ -27,8 +27,17 @@ public class AuthService {
 
     public Member authenticateMember(String id, String pw) {
         Member member = memberMapper.findById(id);
-        if (member != null && passwordEncoder.matches(pw, member.getPw())) {
+        if (member == null) {
+            System.out.println("No member found for ID: " + id);
+            return null;
+        }
+
+        System.out.println("Member found: " + member.getId());
+        if (passwordEncoder.matches(pw, member.getPw())) {
+            System.out.println("Password matches for member ID: " + member.getId());
             return member;
+        } else {
+            System.out.println("Password does not match for member ID: " + member.getId());
         }
         return null;
     }

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.backend.member.MemberMapper">
     <resultMap id="memberResultMap" type="com.kh.backend.member.Member">
+        <result property="no" column="no"/>
         <result property="id" column="id"/>
         <result property="pw" column="pw"/>
         <result property="name" column="name"/>
@@ -16,7 +17,7 @@
                     #{birth, jdbcType=DATE}, #{gender, jdbcType=VARCHAR})
     </insert>
     <select id="findById" parameterType="String" resultMap="memberResultMap">
-        SELECT no, pw FROM member WHERE id = #{id}
+        SELECT * FROM member WHERE id = #{id}
     </select>
     <select id="findByEmail" parameterType="String" resultMap="memberResultMap">
         SELECT * FROM member WHERE email = #{email}

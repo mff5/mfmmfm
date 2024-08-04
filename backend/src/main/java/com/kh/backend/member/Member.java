@@ -1,5 +1,6 @@
 package com.kh.backend.member;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@Data
 public class Member {
     private int no;
     private String id;

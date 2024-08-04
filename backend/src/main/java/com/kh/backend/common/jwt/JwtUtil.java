@@ -18,7 +18,13 @@ public class JwtUtil {
     private final long refreshTokenExpiration = 1000 * 60 * 60 * 24;
 
     public String generateAccessToken(String username, String role, int no) {
-        return Jwts.builder()
+        if (username == null) {
+            throw new IllegalArgumentException("Username cannot be null when generating token");
+        }
+
+        System.out.println("Generating token for username: " + username);
+
+        String token = Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
                 .claim("no", no)
@@ -26,7 +32,11 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
                 .signWith(accessKey)
                 .compact();
+
+        System.out.println("Generated accessToken: " + token);
+        return token;
     }
+
 
     public String generateRefreshToken(String username, String role, int no) {
         return Jwts.builder()

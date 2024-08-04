@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.backend.payment.PaymentMapper">
+    <resultMap id="paymentResultMap" type="com.kh.backend.payment.Payment">
+        <result property="no" column="no"/>
+        <result property="memberNo" column="member_no"/>
+        <result property="officeNo" column="office_no"/>
+        <result property="guests" column="guests" jdbcType="INTEGER" javaType="int"/>
+        <result property="paymentMethod" column="paymentMethod"/>
+        <result property="startDate" column="start_date" jdbcType="DATE"/>
+        <result property="endDate" column="end_date" jdbcType="DATE"/>
+        <result property="price" column="price"/>
+        <result property="regDate" column="reg_date" jdbcType="DATE"/>
+    </resultMap>
+    <select id="getBookingsByManager" resultType="map">
+        SELECT *
+        FROM (SELECT b.no       AS booking_no,
+                     b.reg_date AS booking_date,
+                     b.name     AS booking_name,
+                     m.phone    AS booking_phone,
+                     b.start_date,
+                     b.end_date,
+                     ROW_NUMBER()  OVER (ORDER BY b.reg_date DESC) AS rn
+              FROM booking b
+                       JOIN
+                   office o ON b.office_no = o.no
+                       JOIN
+                   manager mgr ON o.manager_no = mgr.no
+                       JOIN
+                   member m ON b.member_no = m.no
+              WHERE mgr.no = #{no})
+        WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{limit}
+    </select>
+
+    <select id="countBookingsByManager" resultType="int">
+        SELECT COUNT(*)
+        FROM booking b
+                 JOIN office o ON b.office_no = o.no
+                 JOIN manager m ON o.manager_no = m.no
+        WHERE m.no = #{no}
+    </select>
+    <select id="getPaymentsByMemberNo" resultMap="paymentResultMap">
+        select *
+        from payment
+        where member_no = #{memberNo}
+    </select>
+    <insert id="insertPayment">
+        insert into payment(office_no, member_no, guests, paymentMethod, start_date, end_date, price)
+        values (#{officeNo}, #{memberNo}, #{guests}, #{paymentMethod}, #{startDate}, #{endDate}, #{price})
+    </insert>
+</mapper>
