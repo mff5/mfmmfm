@@ -1,31 +1,26 @@
-import "/src/styles/pages/manager/ManagerPage.css";
-import ManagerHeader from "./ManagerHeader";
-import ManagerFooter from "./ManagerFooter";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import ManagerHeader from './ManagerHeader';
+import ManagerFooter from './ManagerFooter';
+import OfficeRegister from './OfficeRegister';
+import OfficeEdit from './OfficeEdit';
+import ManagerInfo from './ManagerInfo';
+import ReviewManagement from './ReviewManagement';
+import '/src/styles/pages/manager/ManagerPage.css';
 
 const ManagerPage = () => {
     return (
         <div className="manager-page">
             <ManagerHeader />
-            <div className="content-container">
-                <div className="sidebar">
-                    <div className="sidebar-logo">
-                        <img src="/logo.png" alt="Logo" />
-                    </div>
-                    <ul className="sidebar-menu">
-                        <li>오피스 등록</li>
-                        <li>오피스 수정</li>
-                        <li>오피스 목록</li>
-                        <li>리뷰</li>
-                        <li>매니저 정보</li>
-                    </ul>
-                </div>
-                <div className="main-content">
-                    <div className="content">
-                        <h2>메인 콘텐츠</h2>
-                        <p>여기에 페이지의 주요 정보와 기능을 표시할 수 있습니다.</p>
-                    </div>
-                </div>
-            </div>
+            <main className="main-content">
+                <Routes>
+                    <Route path="register" element={<OfficeRegister />} />
+                    <Route path="edit" element={<OfficeEdit />} />
+                    <Route path="info" element={<ManagerInfo />} />
+                    <Route path="reviews" element={<ReviewManagement />} />
+                    <Route path="*" element={<OfficeRegister />} /> {/* 기본 페이지 */}
+                </Routes>
+            </main>
             <ManagerFooter />
         </div>
     );

@@ -1,0 +1,63 @@
+.manager-footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;  /* 가로 폭을 넓게 설정 */
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 24px;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: #adb5bd;
+    transition: color 0.3s;
+}
+
+.footer-section ul li:hover {
+    color: #ffdd57;
+}
+
+.footer-bottom {
+    border-top: 1px solid #495057;
+    margin-top: 20px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-bottom span {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.footer-bottom span:hover {
+    color: #ffdd57;
+}
+
+.footer-logo {
+    height: 30px;
+    margin-bottom: 10px;
+}

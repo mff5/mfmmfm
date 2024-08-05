@@ -3,6 +3,7 @@ package com.kh.backend.office;
 import com.kh.backend.manager.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ public class OfficeService {
         int offset = (page - 1) * size;
         return officeMapper.getOfficeStatusPaged(no, offset, size);
     }
+
     public int getOfficeStatusCount(int no) {
         return officeMapper.getOfficeStatusCount(no);
     }
@@ -69,7 +71,12 @@ public class OfficeService {
     public void deleteOffice(int no) {
         officeMapper.deleteOffice(no);
     }
+
     public Office getOffice(int no) {
         return officeMapper.getOffice(no);
+    }
+
+    public void insertOffice(Office office) {
+        officeMapper.insertOffice(office);
     }
 }

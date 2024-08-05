@@ -14,9 +14,11 @@ public class Office {
     private Double latitude;
     private Double longitude;
     private String content;
-    private Long price;
-    private Long capacity;
+    private int price;
+    private int capacity;
     private String titleImg;
+    private String subImg1;
+    private String subImg2;
     private int availability;
     private Date regDate;
 }

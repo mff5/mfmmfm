@@ -41,17 +41,18 @@ function App() {
 
         <Route path="/managerTest" element={<ManagerTest/>}/>
 
-        <Route path="/managerPage" element={<ManagerPage/>}/>
+        <Route path="/managerPage/*" element={<ManagerPage />} />
 
         {/* 멤버 보호 라우트 */}
         <Route path="/member/update" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberUpdate /></PrivateRoute>} />
         <Route path="/member/delete" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberDelete /></PrivateRoute>} />
         <Route path="/search" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberSearch /></PrivateRoute>} />
 
-        {/* 매니저 보호 라우트 */}
+        {/* 매니저 보호 라우트
         <Route path="/manager" element={<ManagerLogin />} />
         <Route path="/manager/:no" element={<PrivateRoute requiredRole="ROLE_MANAGER"><ManagerMain /></PrivateRoute>} />
         <Route path="/manager/office/:no" element={<PrivateRoute requiredRole="ROLE_MANAGER"><ManagerOffice /></PrivateRoute>} />
+*/}
 
         {/* 어드민 라우트 추가 */}
         <Route path="/admin" element={<PrivateRoute requiredRole="ROLE_ADMIN"><AdminMain /></PrivateRoute>} />

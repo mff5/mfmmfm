@@ -42,4 +42,6 @@ public interface OfficeMapper {
 
     Office getOffice(@Param("no") int no);
     int getManagerNo(int no);
+
+    void insertOffice(Office office);
 }

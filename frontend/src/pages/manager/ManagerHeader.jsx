@@ -1,69 +1,25 @@
-import React, { useState, useRef } from "react";
-import { FaCircleUser } from "react-icons/fa6";
-import { IoIosMenu } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import "../../styles/pages/manager/ManagerPage.css"; // Assuming the styles are included in the main CSS file
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Logo1 from '/src/assets/logo1.png';
+import '/src/styles/pages/manager/ManagerHeader.css';
 
 const ManagerHeader = () => {
-    const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
     const navigate = useNavigate();
-
-    // Handle click outside dropdown to close it
-    const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setShowDropdown(false);
-        }
-    };
-
-    React.useEffect(() => {
-        document.addEventListener("click", handleClickOutside);
-        return () => {
-            document.removeEventListener("click", handleClickOutside);
-        };
-    }, []);
 
     return (
         <header className="manager-header">
-            <div className="header-logo" onClick={() => navigate("/")}>
-                <img src="/public/logo.png" alt="Logo" />
+            <div className="header-content">
+                <img src={Logo1} alt="Belliz Logo" className="header-logo" onClick={() => navigate('/managerPage/register')} />
+                <h1>Office24 관리자</h1>
+                <nav className="header-nav">
+                    <ul>
+                        <li onClick={() => navigate('/managerPage/register')}>오피스 등록</li>
+                        <li onClick={() => navigate('/managerPage/edit')}>오피스 수정</li>
+                        <li onClick={() => navigate('/managerPage/info')}>매니저 정보</li>
+                        <li onClick={() => navigate('/managerPage/reviews')}>리뷰 관리</li>
+                    </ul>
+                </nav>
             </div>
-            <nav className="header-nav">
-                <ul>
-                    <li onClick={() => navigate("/home")}>홈</li>
-                    <li onClick={() => navigate("/services")}>서비스</li>
-                    <li onClick={() => navigate("/inquiries")}>문의</li>
-                    <li onClick={() => navigate("/logout")}>로그아웃</li>
-                </ul>
-                <div className="profile-wrapper" ref={dropdownRef}>
-                    <FaCircleUser
-                        className="profile-icon"
-                        onClick={() => setShowDropdown(!showDropdown)}
-                    />
-                    {showDropdown && (
-                        <div className="profile-dropdown">
-                            <div
-                                className="dropdown-option"
-                                onClick={() => navigate("/profile")}
-                            >
-                                프로필
-                            </div>
-                            <div
-                                className="dropdown-option"
-                                onClick={() => navigate("/settings")}
-                            >
-                                설정
-                            </div>
-                            <div
-                                className="dropdown-option"
-                                onClick={() => navigate("/logout")}
-                            >
-                                로그아웃
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </nav>
         </header>
     );
 };

@@ -1,0 +1,211 @@
+/* 기존 CSS */
+.office-register {
+    margin: 0 auto;
+    padding: 20px;
+    width: 1500px; /* 너비를 줄여서 균형 있게 보이도록 조정 */
+    background-color: #fff; /* 배경색을 흰색으로 변경 */
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+}
+
+.office-register-title {
+    font-size: 28px; /* 제목 크기 조정 */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* 제목 색상 조정 */
+}
+
+.office-register-content {
+    display: flex;
+    justify-content: space-between; /* 폼과 이미지를 양쪽에 배치 */
+    align-items: flex-start;
+}
+
+.office-register-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 두 열 레이아웃 */
+    gap: 20px; /* 간격 조정 */
+    width: 55%; /* 폼 너비 조정 */
+    background-color: #f9f9f9; /* 폼 배경색 */
+    border-radius: 8px; /* 폼의 둥근 모서리 */
+    padding: 20px; /* 폼 내부 여백 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    font-size: 16px; /* 레이블 크기 조정 */
+    font-weight: 600;
+    margin-bottom: 6px; /* 레이블과 입력 필드 간의 간격 조정 */
+    color: #555; /* 레이블 색상 조정 */
+}
+
+input, textarea, select {
+    padding: 10px; /* 패딩을 늘려서 입력 필드 높이 조정 */
+    border: 1px solid #ddd; /* 테두리 색상 조정 */
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s; /* 부드러운 효과 추가 */
+}
+
+input::placeholder, textarea::placeholder {
+    color: #aaa; /* 플레이스홀더 색상 조정 */
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #e91e63; /* 포커스 시 핫핑크 색상 적용 */
+    box-shadow: 0 0 4px rgba(233, 30, 99, 0.3); /* 포커스 효과 추가 */
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px; /* 최소 높이 조정 */
+    max-height: 150px; /* 최대 높이 조정 */
+    grid-column: span 2; /* 텍스트 영역이 두 열에 걸치도록 설정 */
+}
+
+select {
+    padding: 10px;
+    height: 40px;
+}
+
+.submit-button {
+    background-color: #e91e63; /* 핫핑크 색상 적용 */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    grid-column: span 2; /* 버튼이 두 열에 걸치도록 설정 */
+}
+
+.submit-button:hover {
+    background-color: #d81b60; /* 버튼 호버 시 더 어두운 핫핑크 색상 */
+}
+
+.image-previews {
+    width: 40%; /* 이미지 미리보기 컨테이너 너비 조정 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 중앙 정렬 */
+    margin-left: 20px; /* 폼과 간격 조정 */
+    padding-top: 20px; /* 폼과 이미지 사이의 간격 */
+}
+
+.image-preview-main {
+    width: 100%; /* 메인 이미지 너비 조정 */
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    margin-bottom: 20px; /* 서브 이미지와의 간격 */
+}
+
+.image-preview-main img {
+    max-width: 100%; /* 이미지 최대 너비 조정 */
+    max-height: 300px; /* 이미지 최대 높이 조정 */
+    border-radius: 8px;
+    object-fit: cover; /* 이미지 비율 유지 */
+    border: 1px solid #ddd; /* 테두리 색상 조정 */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+}
+
+.image-preview-sub-container {
+    display: flex; /* 서브 이미지를 가로로 배치 */
+    justify-content: space-between; /* 이미지 간의 균형 조정 */
+    width: 100%; /* 전체 너비 설정 */
+}
+
+.image-preview-sub {
+    width: 48%; /* 서브 이미지 너비 조정 */
+    padding-top: 48%; /* 비율을 1:1로 유지하기 위한 패딩 */
+    position: relative; /* 자식 요소의 위치 설정을 위한 상대 위치 */
+    overflow: hidden; /* 이미지가 영역을 넘지 않도록 설정 */
+}
+
+.image-preview-sub img {
+    position: absolute; /* 절대 위치 설정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 이미지 너비 설정 */
+    height: 100%; /* 이미지 높이 설정 */
+    object-fit: cover; /* 이미지 비율 유지 */
+    border-radius: 8px;
+    border: 1px solid #ddd; /* 테두리 색상 조정 */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+}
+
+.address-container {
+    display: flex;
+    align-items: center;
+}
+
+.address-container button {
+    margin-left: 10px;
+}
+
+.address-modal {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.address-modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.search-results {
+    list-style: none;
+    padding: 0;
+}
+
+.search-results li {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.search-results li:hover {
+    text-decoration: underline;
+}
+
+/* 추가 CSS */
+.modal-content {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e91e63;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: #d81b60;
+}

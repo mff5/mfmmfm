@@ -13,6 +13,8 @@
         <result property="price" column="price"/>
         <result property="capacity" column="capacity"/>
         <result property="titleImg" column="title_img"/>
+        <result property="subImg1" column="sub_img1"/>
+        <result property="subImg2" column="sub_img2"/>
         <result property="availability" column="availability"/>
         <result property="regDate" column="reg_date"/>
     </resultMap>
@@ -109,7 +111,6 @@
         SELECT COUNT(*) FROM office
         WHERE manager_no = #{no}
     </select>
-
     <!-- 오피스 목록 조회 -->
     <select id="getOffices" resultType="com.kh.backend.office.Office">
         SELECT * FROM (
@@ -154,4 +155,10 @@
     <select id="getManagerNo" resultType="int">
         select MANAGER_NO from OFFICE where NO = #{no}
     </select>
+    <insert id="insertOffice" parameterType="com.kh.backend.office.Office">
+        insert into OFFICE (MANAGER_NO, TITLE, ADDRESS, ZIP_CODE, LATITUDE, LONGITUDE, CONTENT, PRICE, CAPACITY,
+                                   TITLE_IMG, SUB_IMG1, SUB_IMG2, AVAILABILITY)
+        values (#{managerNo},#{title}, #{address}, #{zipCode}, #{latitude}, #{longitude}, #{content}, #{price},
+                #{capacity}, #{titleImg}, #{subImg1}, #{subImg2}, #{availability})
+    </insert>
 </mapper>
