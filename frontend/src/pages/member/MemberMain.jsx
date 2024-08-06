@@ -6,7 +6,7 @@ import PopUpQNA from "../../components/member/PopUpQNA";
 import PopupPage from "../../components/member/PopupPage";
 import "../../styles/pages/member/MemberMain.css";
 import {useNavigate} from "react-router-dom";
-import MemberHeader from "./MemberHeader.jsx";
+import MemberHeader from "../../components/member/MemberHeader.jsx";
 
 const initialPopupState = {
   type: null,

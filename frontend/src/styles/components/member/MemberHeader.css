@@ -1,127 +1,86 @@
-.header-container {
+.member-header {
     position: fixed;
     top: 0;
-    right: 0;
-    background-color: var(--background-color);
-    height: 80px;
+    left: 0;
     width: 100%;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 좌우로 정렬 */
+    padding: 20px 30px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
 
-    .categories-container {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: var(--background-color);
-        box-shadow: 1px 5px 4px var(--shaded-color);
-        transition: all 0.3s ease;
-        z-index: -1;
-        height: 80px;
-    }
+.member-header-logo {
+    display: flex;
+    align-items: center;
+}
 
-    .categories-container.expanded {
-        top: 80px;
-        height: fit-content;
-    }
+.member-header-logo img {
+    height: 50px;
+}
 
-    .categories-wrapper {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        padding: 10px;
-    }
+.member-header-nav {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 15px;
+}
 
-    .category-button {
-        background-color: var(--primary-color);
-        color: var(--background-color);
-        border: none;
-        border-radius: 20px;
-        padding: 10px 20px;
-        margin: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+.member-header-nav-button {
+    padding: 10px 20px;
+    background-color: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    .category-button:hover {
-        background-color: var(--secondary-color);
-    }
+.member-header-nav-button:hover {
+    background-color: #ff1493;
+}
 
-    .fixed-logo-wrapper {
-        position: fixed;
-        top: 10px;
-        left: 15px;
-        z-index: 1001;
-        font-size: 50px;
-        color: var(--primary-color);
-        cursor: pointer;
-    }
+.member-header-login-signup {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* 오른쪽으로 정렬 */
+}
 
-    .fixed-menu-wrapper {
-        position: fixed;
-        top: 14px;
-        right: 50px;
-        width: 86px;
-        height: 48px;
-        z-index: 1001;
-        border-radius: 30px;
-        border: solid 1px var(--shaded-color);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 0 0 5px;
-        cursor: pointer;
-    }
+.member-header-login-button,
+.member-header-logout-button,
+.member-header-signup-button,
+.member-header-mypage-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+    background-color: #ff69b4;
+    color: #fff;
+}
 
-    .profile-img-wrapper {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        position: relative;
-        overflow: hidden;
-        background-color: var(--shaded-color);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid var(--shaded-light-color);
-    }
+.member-header-login-button:hover,
+.member-header-logout-button:hover,
+.member-header-signup-button:hover,
+.member-header-mypage-button:hover {
+    background-color: #ff1493;
+}
 
-    .fixed-menu-wrapper:hover {
-        box-shadow: var(--shaded-light-color) 0px 3px 2px;
-    }
+.member-header-signup-button,
+.member-header-mypage-button {
+    background-color: #fff;
+    color: #ff69b4;
+    border: 1px solid #ff69b4;
+}
 
-    .profile-dropdown {
-        position: fixed;
-        top: 70px;
-        right: 50px;
-        background-color: var(--background-color);
-        border: 1px solid var(--shaded-color);
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        min-width: 150px;
-        z-index: 1002;
-    }
-
-    .profile-img-wrapper:hover .profile-dropdown {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .dropdown-option {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-option:hover {
-        background-color: var(--shaded-color);
-    }
-
-    .dropdown-divider {
-        border-top: 1px solid var(--shaded-color);
-        margin: 5px 0;
-    }
+.member-header-signup-button:hover,
+.member-header-mypage-button:hover {
+    background-color: #ff69b4;
+    color: #fff;
 }

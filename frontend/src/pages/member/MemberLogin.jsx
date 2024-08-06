@@ -34,8 +34,8 @@ const MemberLogin = () => {
             withCredentials: true // 필요시 사용
         })
             .then(response => {
-                const { accessToken, refreshToken } = response.data;
-                setTokens(accessToken, refreshToken);
+                const { accessToken, refreshToken, no } = response.data;
+                setTokens(accessToken, refreshToken, no);
                 console.log('Stored accessToken:', localStorage.getItem('accessToken'));
                 navigate('/');
             })

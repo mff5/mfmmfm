@@ -34,4 +34,10 @@
     <update id="resetPw">
         update MEMBER set pw = #{pw} where id = #{id}
     </update>
+    <select id="findByNo" parameterType="int" resultMap="memberResultMap">
+select * from member where no = #{no}
+    </select>
+    <update id="updatePw" parameterType="String">
+        update member set pw =#{pw}
+    </update>
 </mapper>

@@ -13,10 +13,10 @@ const ManagerHeader = () => {
                 <h1>Office24 관리자</h1>
                 <nav className="header-nav">
                     <ul>
-                        <li onClick={() => navigate('/managerPage/officeList')}>나의 오피스</li>
-                        <li onClick={() => navigate('/managerPage/register')}>오피스 등록</li>
-                        <li onClick={() => navigate('/managerPage/info')}>매니저 정보</li>
-                        <li onClick={() => navigate('/managerPage/reviews')}>리뷰 관리</li>
+                        <li onClick={() => navigate('/manager/managerPage/officeList')}>나의 오피스</li>
+                        <li onClick={() => navigate('/manager/managerPage/register')}>오피스 등록</li>
+                        <li onClick={() => navigate('/manager/managerPage/info')}>매니저 정보</li>
+                        <li onClick={() => navigate('/manager/managerPage/reviews')}>리뷰 관리</li>
                     </ul>
                 </nav>
             </div>

@@ -96,4 +96,14 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @PatchMapping("/pw")
+    public ResponseEntity<?> updatePw(@RequestBody Map<String, String> request)    {
+        String pw = request.get("pw");
+        boolean result = memberService.updatePw(pw);
+        if (result) {
+            return ResponseEntity.ok(null);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

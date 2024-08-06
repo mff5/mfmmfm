@@ -14,10 +14,9 @@ const ManagerLogin = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/auth/manager/login', { id, pw });
-            const { accessToken, refreshToken, no } = response.data;
+            const { accessToken, refreshToken} = response.data;
             setTokens(accessToken, refreshToken);
-            localStorage.setItem('no',no);
-            navigate(`/manager/${no}`);
+            navigate('/manager/managerPage');
         } catch (error) {
             alert(error.response.data || '알 수 없는 오류가 발생했습니다.');
         }

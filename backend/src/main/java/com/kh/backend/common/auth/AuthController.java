@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.backend.member.SocialService;
 import com.kh.backend.payment.Payment;
 import com.kh.backend.payment.PaymentService;
 import com.kh.backend.member.MemberMapper;
@@ -12,7 +13,6 @@ import com.kh.backend.member.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.kh.backend.admin.Admin;
@@ -29,13 +29,16 @@ public class AuthController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
     private final PaymentService paymentService;
+    private final SocialService socialService;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, PaymentService paymentService) {
+    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, PaymentService paymentService,
+                          SocialService socialService) {
         this.jwtUtil = jwtUtil;
         this.authService = authService;
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.paymentService = paymentService;
+        this.socialService = socialService;
     }
 
     @PostMapping("/refresh")
@@ -93,14 +96,14 @@ public class AuthController {
 
     @GetMapping("/kakao/login-url")
     public ResponseEntity<String> getKakaoLoginUrl() {
-        String kakaoLoginUrl = memberService.getKakaoLoginUrl();
+        String kakaoLoginUrl = socialService.getKakaoLoginUrl();
         return ResponseEntity.ok(kakaoLoginUrl);
     }
 
     @GetMapping("/kakao/callback")
     public void kakaoCallback(@RequestParam String code, HttpServletResponse response) throws IOException {
         try {
-            Member member = memberService.findOrCreateKakaoUser(code);
+            Member member = socialService.findOrCreateKakaoUser(code);
             response.sendRedirect("http://localhost:5173/login?message=success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,14 +113,14 @@ public class AuthController {
 
     @GetMapping("/naver/login-url")
     public ResponseEntity<String> getNaverLoginUrl() {
-        String naverLoginUrl = memberService.getNaverLoginUrl();
+        String naverLoginUrl = socialService.getNaverLoginUrl();
         return ResponseEntity.ok(naverLoginUrl);
     }
 
     @GetMapping("/naver/callback")
     public void naverCallback(@RequestParam String code, HttpServletResponse response) throws IOException {
         try {
-            Member member = memberService.findOrCreateNaverUser(code);
+            Member member = socialService.findOrCreateNaverUser(code);
             response.sendRedirect("http://localhost:5173/login?message=success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,14 +130,14 @@ public class AuthController {
 
     @GetMapping("/google/login-url")
     public ResponseEntity<String> getGoogleLoginUrl() {
-        String googleLoginURl = memberService.getGoogleLoginUrl();
+        String googleLoginURl = socialService.getGoogleLoginUrl();
         return ResponseEntity.ok(googleLoginURl);
     }
 
     @GetMapping("/google/callback")
     public void googleCallback(@RequestParam String code, HttpServletResponse response) throws IOException {
         try {
-            Member member = memberService.findOrCreateGoogleUser(code);
+            Member member = socialService.findOrCreateGoogleUser(code);
             response.sendRedirect("http://localhost:5173/login?message=success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,21 +155,11 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/member")
-    public ResponseEntity<?> getUserInfo(Authentication authentication) {
-        if (authentication == null) {
-            System.out.println("Authentication object is null");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
-        }
-        String name = authentication.getName();
-        System.out.println("Authenticated user: " + name);
-        Member member = memberMapper.findById(name);
-        if (member == null) {
-            System.out.println("Member not found with name: " + name);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found");
-        }
-        int memberNo = member.getNo();
-        System.out.println("Member number: " + memberNo);
+    @GetMapping("/member/{no}")
+    public ResponseEntity<?> getUserInfo(@PathVariable String no) {
+        int memberNo = Integer.parseInt(no);
+
+        Member member = memberMapper.findByNo(memberNo);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -183,8 +176,8 @@ public class AuthController {
         response.put("member", member);
         System.out.println("Member details: " + member);
         response.put("payments", payments);
+        System.out.println("payments: " + payments);
 
         return ResponseEntity.ok(response);
     }
-
 }

@@ -79,3 +79,17 @@ export const getNo = () => {
     }
     return null;
 };
+
+export const getRole = () => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+        try {
+            const decodedToken = jwtDecode(accessToken);
+            return decodedToken.role;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
+    return null;
+};

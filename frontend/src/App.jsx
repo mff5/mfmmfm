@@ -22,7 +22,7 @@ import MemberPage from "./pages/member/MemberPage.jsx";
 import ManagerTest from "./pages/manager/ManagerTest.jsx";
 import ManagerPage from "./pages/manager/ManagerPage.jsx";
 import OfficeEdit from "./pages/manager/OfficeEdit.jsx";
-import MemberHeader from "./pages/member/MemberHeader.jsx";
+import MemberHeader from "./components/member/MemberHeader.jsx";
 
 function App() {
   return (
@@ -39,11 +39,11 @@ function App() {
         <Route path="/member/resetPw" element={<MemberResetPw/>}/>
         <Route path="/member/office/:no" element={<MemberOffice/>}/>
         <Route path="/member/book" element={<MemberPayment/>}/>
-        <Route path="/memberPage" element={<MemberPage/>}/>
+        <Route path="/member/memberPage" element={<MemberPage/>}/>
 
         <Route path="/manager/officeEdit/:no" element={<OfficeEdit />}/>
         <Route path="/managerTest" element={<ManagerTest/>}/>
-        <Route path="/managerPage/*" element={<ManagerPage />} />
+        <Route path="/manager/managerPage/*" element={<ManagerPage />} />
 
 
         {/* 멤버 보호 라우트 */}
