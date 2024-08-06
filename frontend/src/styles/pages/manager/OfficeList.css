@@ -4,23 +4,24 @@
     gap: 20px;
     margin: 20px auto;
     max-width: 1800px;
+    padding-bottom: 40px; /* 페이지네이션을 위한 여백 추가 */
 }
 
 .office-card {
-    background-color: white;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, transform 0.3s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    position: relative;
 }
 
 .office-card:hover {
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px); /* 살짝 위로 올라가는 효과 */
 }
 
 .image-placeholder {
@@ -49,26 +50,81 @@
     margin: 0;
     font-size: 18px;
     font-weight: bold;
+    color: #333;
 }
 
 .office-details p {
     margin: 4px 0;
-    color: #555;
+    color: #777;
 }
 
-.edit-button {
-    background-color: #e91e63;
-    color: white;
-    border: none;
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.button-group button {
+    width: 30%;
     padding: 10px;
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
-    margin: 10px auto;
-    display: block;
-    width: 80%;
+    border: none;
+    transition: background-color 0.3s;
+    color: #fff; /* 모든 버튼의 텍스트 색상을 흰색으로 통일 */
+}
+
+.edit-button {
+    background-color: #4CAF50; /* 차분한 녹색 */
 }
 
 .edit-button:hover {
-    background-color: #d81b60;
+    background-color: #45A049;
+}
+
+.delete-button {
+    background-color: #F44336; /* 부드러운 빨간색 */
+}
+
+.delete-button:hover {
+    background-color: #E53935;
+}
+
+.review-button {
+    background-color: #2196F3; /* 차분한 파란색 */
+}
+
+.review-button:hover {
+    background-color: #1976D2;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+.pagination button:hover {
+    background-color: #495057;
+}
+
+.pagination span {
+    font-size: 18px;
+    margin: 0 10px;
 }

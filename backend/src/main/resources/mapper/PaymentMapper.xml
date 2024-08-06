@@ -6,7 +6,7 @@
         <result property="memberNo" column="member_no"/>
         <result property="officeNo" column="office_no"/>
         <result property="guests" column="guests" jdbcType="INTEGER" javaType="int"/>
-        <result property="paymentMethod" column="paymentMethod"/>
+        <result property="paymentMethod" column="payment_method"/>
         <result property="startDate" column="start_date" jdbcType="DATE"/>
         <result property="endDate" column="end_date" jdbcType="DATE"/>
         <result property="price" column="price"/>
@@ -45,7 +45,7 @@
         where member_no = #{memberNo}
     </select>
     <insert id="insertPayment">
-        insert into payment(office_no, member_no, guests, paymentMethod, start_date, end_date, price)
+        insert into payment(office_no, member_no, guests, payment_method, start_date, end_date, price)
         values (#{officeNo}, #{memberNo}, #{guests}, #{paymentMethod}, #{startDate}, #{endDate}, #{price})
     </insert>
 </mapper>

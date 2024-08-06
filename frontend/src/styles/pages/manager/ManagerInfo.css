@@ -1,0 +1,54 @@
+.manager-info-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5; /* 페이지 배경 색상 */
+}
+
+.manager-info-container {
+    width: 800px; /* 넓은 컨테이너 너비 */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.manager-info-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    border-bottom: 3px solid #e91e63;
+    padding-bottom: 15px;
+}
+
+.manager-info-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.manager-info-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.manager-info-field label {
+    font-weight: bold;
+    color: #555;
+    width: 200px; /* 레이블의 고정 너비 */
+    text-align: right;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.manager-info-field span {
+    color: #333;
+    flex: 1;
+    text-align: left;
+}

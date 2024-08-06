@@ -150,9 +150,9 @@ const MemberRegister = () => {
     }
 
     return (
-        <div className="register-page">
+        <div className="member-register-page">
             <div className="member-register">
-                <div className="logo" onClick={logoClick}>OFFICE24</div>
+                <div className="logo" onClick={logoClick}><img src="/src/assets/logo1.png"/></div>
                 <h1>회원가입</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group id-group">

@@ -1,0 +1,57 @@
+.office-review-list {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.office-review-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.office-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.office-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.office-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1; /* 1:1 비율 유지 */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.office-card-content {
+    padding: 15px;
+}
+
+.office-card-content h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.office-card-content p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.office-info-label {
+    font-weight: bold;
+    color: #444;
+}

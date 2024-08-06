@@ -5,9 +5,9 @@ import ManagerFooter from './ManagerFooter';
 import OfficeRegister from './OfficeRegister';
 import OfficeEdit from './OfficeEdit';
 import ManagerInfo from './ManagerInfo';
-import ReviewManagement from './ReviewManagement';
 import '/src/styles/pages/manager/ManagerPage.css';
 import OfficeList from "./OfficeList.jsx";
+import OfficeReview from "./OfficeReview.jsx";
 
 const ManagerPage = () => {
     return (
@@ -18,7 +18,7 @@ const ManagerPage = () => {
                     <Route path="register" element={<OfficeRegister />} />
                     <Route path="edit" element={<OfficeEdit />} />
                     <Route path="info" element={<ManagerInfo />} />
-                    <Route path="reviews" element={<ReviewManagement />} />
+                    <Route path="reviews" element={<OfficeReview />} />
                     <Route path="officeList" element={<OfficeList/>}/>
                     <Route path="*" element={<OfficeList/>}/>
                 </Routes>

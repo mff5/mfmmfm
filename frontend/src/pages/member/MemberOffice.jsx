@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "/src/styles/pages/member/MemberOffice.css";
-import MemberHeader from "../../components/member/MemberHeader.jsx";
 import MemberFooter from "../../components/member/MemberFooter.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -36,7 +35,6 @@ const MemberOffice = () => {
 
     return (
         <div className="member-office-page">
-            <MemberHeader />
             <div className="member-office-container">
                 <div className="member-office-header">
                     <div className="office-meta">

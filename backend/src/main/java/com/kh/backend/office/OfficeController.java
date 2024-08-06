@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,8 @@ public class OfficeController {
 
     @Autowired
     private OfficeService officeService;
+    @Autowired
+    private GeocodingService geocodingService;
 
     // 통계 메소드
     @GetMapping("/manager/office/stats/{no}")
@@ -81,6 +84,7 @@ public class OfficeController {
         officeService.deleteOffice(no);
         return ResponseEntity.ok().build();
     }
+    @SneakyThrows
     @PostMapping("/office/register")
     public ResponseEntity<Void> officeRegister( @RequestParam("title") String title,
                                                 @RequestParam("managerNo") String managerNo,
@@ -105,8 +109,8 @@ public class OfficeController {
         office.setTitle(title);
         office.setAddress(address);
         office.setZipCode(zipCode);
-        office.setLatitude(Double.parseDouble(latitude));
-        office.setLongitude(Double.parseDouble(longitude));
+        office.setLatitude(geocodingService.getCoordinates(zipCode).getLatitude());
+        office.setLongitude(geocodingService.getCoordinates(zipCode).getLongitude());
         office.setContent(content);
         office.setPrice(Integer.parseInt(price));
         office.setCapacity(Integer.parseInt(capacity));
@@ -137,10 +141,26 @@ public class OfficeController {
 
         try {
             Files.copy(file.getInputStream(), Paths.get(filePath));
-            return "/files/" + new File(filePath).getName(); // Assuming a file URL path
+            return new File(filePath).getName(); // Assuming a file URL path
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
+    }
+    @GetMapping("/manager/officeEdit/{no}")
+    public ResponseEntity<?> editOffice(@PathVariable int no) {
+        Office office = officeService.getOffice(no);
+        if (office != null) {
+            return ResponseEntity.ok(office);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @PutMapping("/manager/officeEdit/{no}")
+    public ResponseEntity<?> officeEdit(@PathVariable int no)   {
+        Office office = officeService.getOffice(no);
+
+        return ResponseEntity.ok(office);
+
     }
 }

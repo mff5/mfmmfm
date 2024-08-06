@@ -41,6 +41,8 @@ public class SecurityConfig {
                 }))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/manager/officeEdit/*").permitAll()
+                        .requestMatchers("/manager/office/*").permitAll()
                         .requestMatchers("/office/register").permitAll()
                         .requestMatchers("/member/payment/**").permitAll()
                         .requestMatchers("/auth/member").permitAll()

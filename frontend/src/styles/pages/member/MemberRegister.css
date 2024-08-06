@@ -1,4 +1,4 @@
-.register-page {
+.member-register-page{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 
-.member-register {
+.member-register-page .member-register {
     width: 600px;
     padding: 40px;
     background-color: white;
@@ -17,34 +17,31 @@
     text-align: center;
 }
 
-.member-register .logo {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #6363d2;
+.member-register-page .member-register .logo img {
+    height: 100px; /* 로고의 높이 설정 */
 }
 
-.member-register h1 {
+.member-register-page .member-register h1 {
     font-size: 36px;
     font-weight: bold;
-    color: #6363d2;
+    color: #f06292; /* 연한 핑크 */
     margin-bottom: 30px;
 }
 
-.member-register .form-group {
+.member-register-page .member-register .form-group {
     margin-bottom: 20px;
     text-align: left;
     position: relative;
 }
 
-.member-register .form-group label {
+.member-register-page .member-register .form-group label {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
 }
 
-.member-register .form-group input,
-.member-register .form-group select {
+.member-register-page .member-register .form-group input,
+.member-register-page .member-register .form-group select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -52,95 +49,95 @@
     box-sizing: border-box;
 }
 
-.member-register .form-group input:focus,
-.member-register .form-group select:focus {
-    border-color: #6363d2;
+.member-register-page .member-register .form-group input:focus,
+.member-register-page .member-register .form-group select:focus {
+    border-color: #f06292; /* 연한 핑크 */
     outline: none;
 }
 
-.member-register .form-group span {
+.member-register-page .member-register .form-group span {
     display: block;
     margin-top: 5px;
     color: red;
 }
 
-.member-register .form-group.id-group .input-group {
+.member-register-page .member-register .form-group.id-group .input-group {
     display: flex;
     align-items: center;
 }
 
-.member-register .form-group.id-group .input-group input {
+.member-register-page .member-register .form-group.id-group .input-group input {
     flex: 1;
 }
 
-.member-register .form-group.id-group .input-group .check-btn {
+.member-register-page .member-register .form-group.id-group .input-group .check-btn {
     margin-left: 10px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #6363d2;
+    background-color: #f06292; /* 더 연한 핑크 */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.member-register .form-group.id-group .input-group .check-btn:hover {
-    background-color: #4a4a9d;
+.member-register-page .member-register .form-group.id-group .input-group .check-btn:hover {
+    background-color: #ec407a; /* 연한 핑크 */
 }
 
-.member-register .form-group.phone-group .input-group {
+.member-register-page .member-register .form-group.phone-group .input-group {
     display: flex;
     align-items: center;
 }
 
-.member-register .form-group.phone-group .input-group input {
+.member-register-page .member-register .form-group.phone-group .input-group input {
     flex: 1;
 }
 
-.member-register .form-group.phone-group .input-group .check-btn {
+.member-register-page .member-register .form-group.phone-group .input-group .check-btn {
     margin-left: 10px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #6363d2;
+    background-color: #f06292; /* 더 연한 핑크 */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.member-register .form-group.phone-group .input-group .check-btn:hover {
-    background-color: #4a4a9d;
+.member-register-page .member-register .form-group.phone-group .input-group .check-btn:hover {
+    background-color: #ec407a; /* 연한 핑크 */
 }
 
-.member-register .form-group.verify-group .input-group {
+.member-register-page .member-register .form-group.verify-group .input-group {
     display: flex;
     align-items: center;
 }
 
-.member-register .form-group.verify-group .input-group input {
+.member-register-page .member-register .form-group.verify-group .input-group input {
     flex: 1;
 }
 
-.member-register .form-group.verify-group .input-group .check-btn {
+.member-register-page .member-register .form-group.verify-group .input-group .check-btn {
     margin-left: 10px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #6363d2;
+    background-color: #f06292; /* 더 연한 핑크 */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.member-register .form-group.verify-group .input-group .check-btn:hover {
-    background-color: #4a4a9d;
+.member-register-page .member-register .form-group.verify-group .input-group .check-btn:hover {
+    background-color: #ec407a; /* 연한 핑크 */
 }
 
-.member-register .form-group .info-message-success {
+.member-register-page .member-register .form-group .info-message-success {
     color: blue !important;
 }
 
-.member-register .button1 {
+.member-register-page .member-register .button1 {
     width: 100%;
     padding: 15px;
     border: none;
@@ -149,10 +146,10 @@
     font-size: 18px;
     margin-top: 20px;
     transition: background-color 0.3s ease;
-    background-color: #6363d2;
+    background-color: #f06292; /* 연한 핑크 */
     color: white;
 }
 
-.member-register .button1:hover {
-    background-color: #4a4a9d;
+.member-register-page .member-register .button1:hover {
+    background-color: #ec407a; /* 조금 더 짙은 연한 핑크 */
 }
