@@ -115,7 +115,7 @@ create table wish (
 );
 
 -----------------------------------------------------------------------------------------
-
+drop table booking;
 create table booking (
     no         number default booking_seq.nextval primary key,          -- 구분 코드
     office_no  number
@@ -125,6 +125,7 @@ create table booking (
         references member ( no )
             on delete cascade,					                        -- 멤버
     name       varchar2(12) not null,			                        -- 예약자
+    guests number not null,
     payment    varchar2(20) not null,			                        -- 결제 수단
     start_date date not null,               	                        -- 예약 시작일
     end_date   date not null,               	                        -- 예약 종료일
@@ -132,3 +133,151 @@ create table booking (
     reg_date   date default systimestamp, 		                        -- 예약일
     constraint chk_date check ( start_date <= end_date )                -- 예약 조건
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table office (
+    no           number default office_seq.nextval primary key,         -- 구분 코드
+    manager_no   number not null
+        references manager ( no )
+            on delete cascade,           			                    -- 담당 관리자
+    title        varchar2(255) not null,     	 	                    -- 이름 (6자 이상 12자 이하 한글x)
+    address      varchar2(255) not null,     	 	                    -- 주소
+    zip_code     varchar2(20) not null,      		                    -- 우편 번호
+    latitude     float not null,             	 	                    -- 좌표 (위도)
+    longitude    float not null,              		                    -- 좌표 (경도)
+    content      varchar2(4000) not null,              		            -- 상세설명
+    price        number(10) not null,       		                    -- 가격
+    capacity     number not null,             		                    -- 수용 가능 인원
+    title_img    char(41) not null,       		                        -- 대표 이미지
+    availability number(1) default 1,         		                    -- 사용 가능 여부 (가능 1, 불가능 0)
+    reg_date     date default systimestamp    		                    -- 생성일
+);
+
+create table review (
+    no        number default review_seq.nextval primary key,            -- 구분 코드
+    member_no number												    -- 작성자
+        references member ( no )
+            on delete cascade,
+    office_no number												    -- 오피스
+        references office ( no )
+            on delete cascade,
+    rating    number check ( rating between 0 and 5 ) not null, 	    -- 점수
+    content   varchar2(4000) not null,         						    -- 내용
+    reg_date  date default systimestamp        						    -- 생성일
+);
+create table manager (
+    no       number default manager_seq.nextval primary key,            -- 구분 코드
+    id       varchar2(12) check ( length(id) >= 6 ) not null unique,    -- 오피스 관리자 아이디 (6자 이상 12자 이하 한글x)
+    pw       varchar2(100) not null,   								    -- 오피스 관리자 비밀번호 (8자 이상 16자 이하 한글x, 영문 대문자, 소문자, 숫자, 특수문자 각 1개씩 포함)
+    name     varchar2(12) check ( length(name) >= 2 ) not null,         -- 오피스 관리자 이름 (2자 이상 12자 이하 영어x)
+    phone    char(11) not null,                                         -- 오피스 관리자 번호 (번호, 이메일 둘 중 하나만 필수)
+    email    varchar2(32) default null,                                 -- 오피스 관리자 이메일 (번호, 이메일 둘 중 하나만 필수)
+    reg_date date default systimestamp                                  -- 가입일
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from member where id = 'road579579@gmail.com';
+
+
+SELECT no, pw FROM member WHERE id = 'road579579@gmail.com';
+
+drop table booking;
+create table booking (
+                         no         number default booking_seq.nextval primary key,          -- 구분 코드
+                         office_no  number
+                             references office ( no )
+                                 on delete cascade,					                        -- 오피스 번호
+                         member_no  number
+                             references member ( no )
+                                 on delete cascade,					                        -- 멤버
+                         name       varchar2(12) not null,			                        -- 예약자
+                         payment    varchar2(20) not null,			                        -- 결제 수단
+                         start_date date not null,               	                        -- 예약 시작일
+                         end_date   date not null,               	                        -- 예약 종료일
+                         price      number(10) not null,        		                        -- 예약 금액
+                         reg_date   date default systimestamp, 		                        -- 예약일
+                         constraint chk_date check ( start_date <= end_date )                -- 예약 조건
+);
+
+create sequence payment_seq start with 1 increment by 1;
+drop table payment;
+create table payment (
+                         no         number default payment_seq.nextval primary key,          -- 구분 코드
+                         office_no  number,					                        -- 오피스 번호
+                         member_no  number
+,					                        -- 멤버
+                         guests number not null,			                        -- 예약자
+                         payment_method    nvarchar2(20) not null,			                        -- 결제 수단
+                         start_date date not null,               	                        -- 예약 시작일
+                         end_date   date not null,               	                        -- 예약 종료일
+                         price      number(10) not null,        		                        -- 예약 금액
+                         reg_date   date default systimestamp, 		                        -- 예약일
+                         constraint chk_date check ( start_date <= end_date )                -- 예약 조건
+);
+
+SELECT * FROM payment WHERE member_no = 45;
+
+SELECT column_name, data_type
+FROM all_tab_columns
+WHERE table_name = 'PAYMENT' AND column_name = 'GUESTS';
+
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price, reg_date)
+VALUES (101, 45, 6, 'Credit Card', TO_DATE('2024-08-01', 'YYYY-MM-DD'), TO_DATE('2024-08-05', 'YYYY-MM-DD'), 500000, DEFAULT);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price, reg_date)
+VALUES (102, 45, 6, 'PayPal', TO_DATE('2024-08-10', 'YYYY-MM-DD'), TO_DATE('2024-08-12', 'YYYY-MM-DD'), 300000, DEFAULT);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price, reg_date)
+VALUES (103, 45, 6, 'Bank Transfer', TO_DATE('2024-08-15', 'YYYY-MM-DD'), TO_DATE('2024-08-18', 'YYYY-MM-DD'), 700000, DEFAULT);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price, reg_date)
+VALUES (104, 45, 6, 'Credit Card', TO_DATE('2024-09-01', 'YYYY-MM-DD'), TO_DATE('2024-09-03', 'YYYY-MM-DD'), 400000, DEFAULT);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price, reg_date)
+VALUES (105, 45, 6, 'Credit Card', TO_DATE('2024-09-05', 'YYYY-MM-DD'), TO_DATE('2024-09-10', 'YYYY-MM-DD'), 800000, DEFAULT);
+commit;
+
+
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price)
+VALUES (201, 46, 2, 'Credit Card', TO_DATE('2024-08-01', 'YYYY-MM-DD'), TO_DATE('2024-08-03', 'YYYY-MM-DD'), 200000);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price)
+VALUES (202, 46, 1, 'PayPal', TO_DATE('2024-09-10', 'YYYY-MM-DD'), TO_DATE('2024-09-12', 'YYYY-MM-DD'), 150000);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price)
+VALUES (203, 46, 3, 'Bank Transfer', TO_DATE('2024-10-05', 'YYYY-MM-DD'), TO_DATE('2024-10-07', 'YYYY-MM-DD'), 300000);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price)
+VALUES (204, 46, 2, 'Credit Card', TO_DATE('2024-11-15', 'YYYY-MM-DD'), TO_DATE('2024-11-18', 'YYYY-MM-DD'), 250000);
+
+INSERT INTO payment (office_no, member_no, guests, payment_method, start_date, end_date, price)
+VALUES (205, 46, 4, 'Credit Card', TO_DATE('2024-12-01', 'YYYY-MM-DD'), TO_DATE('2024-12-05', 'YYYY-MM-DD'), 400000);
+commit;
