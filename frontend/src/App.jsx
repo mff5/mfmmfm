@@ -3,7 +3,6 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import ManagerLogin from './pages/manager/ManagerLogin';
 import ManagerMain from './pages/manager/ManagerMain';
 import MemberDelete from './pages/member/MemberDelete';
-import MemberLogin from './pages/member/MemberLogin';
 import MemberRegister from './pages/member/MemberRegister';
 import MemberMain from './pages/member/MemberMain';
 import MemberSearch from './pages/member/MemberSearch';
@@ -22,7 +21,7 @@ import MemberPage from "./pages/member/MemberPage.jsx";
 import ManagerTest from "./pages/manager/ManagerTest.jsx";
 import ManagerPage from "./pages/manager/ManagerPage.jsx";
 import OfficeEdit from "./pages/manager/OfficeEdit.jsx";
-import MemberHeader from "./components/member/MemberHeader.jsx";
+import Login from "./pages/Login.jsx";
 
 function App() {
   return (
@@ -30,7 +29,7 @@ function App() {
       <Routes>
         {/* 공개 라우트 */}
         <Route path="/" element={<MemberMain />} />
-        <Route path="/login" element={<MemberLogin />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/member/register" element={<MemberRegister />} />
         <Route path="/manager/register" element={<ManagerRegister />} />
@@ -51,11 +50,11 @@ function App() {
         <Route path="/member/delete" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberDelete /></PrivateRoute>} />
         <Route path="/search" element={<PrivateRoute requiredRole="ROLE_MEMBER"><MemberSearch /></PrivateRoute>} />
 
-        {/* 매니저 보호 라우트
+        {/* 매니저 보호 라우트*/}
         <Route path="/manager" element={<ManagerLogin />} />
         <Route path="/manager/:no" element={<PrivateRoute requiredRole="ROLE_MANAGER"><ManagerMain /></PrivateRoute>} />
         <Route path="/manager/office/:no" element={<PrivateRoute requiredRole="ROLE_MANAGER"><ManagerOffice /></PrivateRoute>} />
-*/}
+
 
         {/* 어드민 라우트 추가 */}
         <Route path="/admin" element={<PrivateRoute requiredRole="ROLE_ADMIN"><AdminMain /></PrivateRoute>} />

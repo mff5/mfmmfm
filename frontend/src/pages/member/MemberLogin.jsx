@@ -1,9 +1,9 @@
-import '../../styles/pages/member/MemberLogin.css';
-import { setTokens } from '../../utils/auth';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { SocialGoogle, SocialKakao, SocialNaver } from "../../components/member/Social.jsx";
+import { setTokens } from '../../utils/auth';
+import { SocialGoogle, SocialKakao, SocialNaver } from "../../components/member/Social";
+import '/src/styles/pages/member/MemberLogin.css';
 
 const MemberLogin = () => {
     const [formData, setFormData] = useState({ id: '', pw: '' });
@@ -31,12 +31,11 @@ const MemberLogin = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            withCredentials: true // 필요시 사용
+            withCredentials: true
         })
             .then(response => {
                 const { accessToken, refreshToken, no } = response.data;
                 setTokens(accessToken, refreshToken, no);
-                console.log('Stored accessToken:', localStorage.getItem('accessToken'));
                 navigate('/');
             })
             .catch(error => {
@@ -44,45 +43,39 @@ const MemberLogin = () => {
             });
     };
 
-    const logoClick = () => {
-        navigate("/");
-    };
-
     return (
-        <div className="member-login-page">
-            <div className="member-login-form">
-                <div className="member-login-logo" onClick={logoClick}>OFFICE24</div>
-                <h2>로그인</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="id">아이디</label>
-                        <input
-                            type="text"
-                            id="id"
-                            name="id"
-                            value={formData.id}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="pw">비밀번호</label>
-                        <input
-                            type="password"
-                            id="pw"
-                            name="pw"
-                            value={formData.pw}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="member-login-help-links">
-                        <Link to="/member/findId">아이디 찾기</Link>
-                        <Link to="/member/resetPw">비밀번호 재설정</Link>
-                        <Link to="/member/register">회원가입</Link>
-                    </div>
-                    <button type="submit" className="member-login-submit-button">로그인</button>
-                </form>
+        <div className="login-form">
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="id">아이디</label>
+                    <input
+                        type="text"
+                        id="id"
+                        name="id"
+                        value={formData.id}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="pw">비밀번호</label>
+                    <input
+                        type="password"
+                        id="pw"
+                        name="pw"
+                        value={formData.pw}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="login-help-links">
+                    <Link to="/member/findId">아이디 찾기</Link>
+                    <Link to="/member/resetPw">비밀번호 재설정</Link>
+                    <Link to="/member/register">회원가입</Link>
+                </div>
+                <button type="submit" className="login-submit-button">로그인</button>
+            </form>
+            <div className="social-login-buttons">
                 <SocialKakao />
                 <SocialNaver />
                 <SocialGoogle />

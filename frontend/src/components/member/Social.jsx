@@ -1,9 +1,10 @@
-import axios from "axios";
 import React from "react";
+import instance from "../../utils/axiosConfig.js";
+import '/src/styles/components/member/Social.css';
 
 export const SocialKakao = () => {
     const handleKakao = () => {
-        axios.get('http://localhost:8080/auth/kakao/login-url')
+        instance.get('http://localhost:8080/auth/kakao/login-url')
             .then(response => {
                 const kakaoURL = response.data;
                 window.location.href = kakaoURL;
@@ -14,13 +15,13 @@ export const SocialKakao = () => {
     };
 
     return (
-        <button onClick={handleKakao} className="member-login-kakao-button">카카오 로그인</button>
+        <button onClick={handleKakao} className="social-login-button member-login-kakao-button">카카오 로그인</button>
     );
 };
 
 export const SocialNaver = () => {
     const handleNaver = () => {
-        axios.get('http://localhost:8080/auth/naver/login-url')
+        instance.get('http://localhost:8080/auth/naver/login-url')
             .then(response => {
                 const naverURL = response.data;
                 window.location.href = naverURL;
@@ -31,13 +32,13 @@ export const SocialNaver = () => {
     };
 
     return (
-        <button onClick={handleNaver} className="member-login-naver-button">네이버 로그인</button>
+        <button onClick={handleNaver} className="social-login-button member-login-naver-button">네이버 로그인</button>
     );
-};
+};0
 
 export const SocialGoogle = () => {
     const handleGoogle = () => {
-        axios.get('http://localhost:8080/auth/google/login-url')
+        instance.get('http://localhost:8080/auth/google/login-url')
             .then(response => {
                 const googleURL = response.data;
                 window.location.href = googleURL;
@@ -48,6 +49,6 @@ export const SocialGoogle = () => {
     };
 
     return (
-        <button onClick={handleGoogle} className="member-login-google-button">구글 로그인</button>
+        <button onClick={handleGoogle} className="social-login-button member-login-google-button">구글 로그인</button>
     );
 };
