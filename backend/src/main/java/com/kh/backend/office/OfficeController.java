@@ -6,6 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import com.kh.backend.manager.Manager;
+import com.kh.backend.manager.ManagerService;
+import com.kh.backend.review.Review;
+import com.kh.backend.review.ReviewService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class OfficeController {
 
-    @Autowired
-    private OfficeService officeService;
-    @Autowired
-    private GeocodingService geocodingService;
+    private final OfficeService officeService;
+    private final ManagerService managerService;
+    private final GeocodingService geocodingService;
+    private final ReviewService reviewService;
+
+    public OfficeController(OfficeService officeService, ManagerService managerService, GeocodingService geocodingService, ReviewService reviewService) {
+        this.officeService = officeService;
+        this.managerService = managerService;
+        this.geocodingService = geocodingService;
+        this.reviewService = reviewService;
+    }
 
     // 통계 메소드
     @GetMapping("/manager/office/stats/{no}")
@@ -178,6 +189,22 @@ public class OfficeController {
         response.put("offices", offices);
         return response;
     }
-
-
+    @GetMapping("/office/{no}")
+    public ResponseEntity<?> getOffice(@PathVariable int no) {
+        Office office = officeService.getOffice(no);
+        int managerNo = office.getManagerNo();
+        Manager manager = managerService.findByNo(managerNo);
+        System.out.println("office="+office);
+        System.out.println(manager);
+        List<Review> reviews = reviewService.getReviews(no);
+        if (office != null) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("office", office);
+            response.put("manager", manager);
+            response.put("reviews", reviews);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

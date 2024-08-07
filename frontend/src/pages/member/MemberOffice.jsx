@@ -14,7 +14,7 @@ const MemberOffice = () => {
     const [manager, setManager] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/member/office/${no}`)
+        axios.get(`http://localhost:8080/office/${no}`)
             .then(response => {
                 if (response.status === 200) {
                     const { office, manager, reviews } = response.data;

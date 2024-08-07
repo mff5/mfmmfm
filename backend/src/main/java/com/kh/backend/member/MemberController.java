@@ -79,24 +79,6 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @GetMapping("/office/{no}")
-    public ResponseEntity<?> getOffice(@PathVariable int no) {
-        Office office = officeService.getOffice(no);
-        int managerNo = office.getManagerNo();
-        Manager manager = managerService.findByNo(managerNo);
-        System.out.println("office="+office);
-        System.out.println(manager);
-        List<Review> reviews = reviewService.getReviews(no);
-        if (office != null) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("office", office);
-            response.put("manager", manager);
-            response.put("reviews", reviews);
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
     @PatchMapping("/updatePw")
     public ResponseEntity<?> updatePw(@RequestBody PwRequest pwRequest)    {
         int no = pwRequest.getNo();

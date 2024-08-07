@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/member/office/*").permitAll()
+                        .requestMatchers("/office/*").permitAll()
                         .requestMatchers("/offices").permitAll()
                         .requestMatchers("/office/register").permitAll()
                         .requestMatchers("/member/payment/**").permitAll()

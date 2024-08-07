@@ -27,16 +27,20 @@ const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
     }, []);
 
     const handleLogout = () => {
-        removeTokens();
-        setIsLoggedIn(false);
-        setRole(null);
-        navigate("/");
+        if(confirm("로그아웃하시겠습니까?"))  {
+            removeTokens();
+            setIsLoggedIn(false);
+            setRole(null);
+            navigate("/");
+        }
     };
 
     const logoClick = () => {
-        onCategorySelect("All");
-        navigate("/");
+        navigate("/")
     };
+    const categoryClick = (category) => {
+        navigate("/" + category);
+    }
 
     return (
         <header className="member-header">
@@ -48,7 +52,7 @@ const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
                     <button
                         key={index}
                         className="member-header-nav-button"
-                        onClick={() => onCategorySelect(category)} // 버튼 클릭 시 onCategorySelect 호출
+                        onClick={() => categoryClick(category)}
                     >
                         {category}
                     </button>

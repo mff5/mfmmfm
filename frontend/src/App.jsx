@@ -29,6 +29,7 @@ function App() {
       <Routes>
         {/* 공개 라우트 */}
         <Route path="/" element={<MemberMain />} />
+        <Route path="/:category" element={<MemberMain />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/member/register" element={<MemberRegister />} />
