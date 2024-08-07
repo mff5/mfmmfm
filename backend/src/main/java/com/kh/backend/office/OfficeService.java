@@ -79,4 +79,12 @@ public class OfficeService {
     public void insertOffice(Office office) {
         officeMapper.insertOffice(office);
     }
+    public List<Office> getAllOffices(int page, int size, Integer availability)    {
+        int offset = (page - 1) * size;
+        return officeMapper.getAllOffices(offset, size, availability);
+    }
+    public List<Office> getByCategory(int page, int size, Integer availability, String category)    {
+        int offset = (page - 1) * size;
+        return officeMapper.getByCategory(offset, size, availability, category);
+    }
 }

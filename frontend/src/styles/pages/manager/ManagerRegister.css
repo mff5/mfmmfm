@@ -1,122 +1,115 @@
-.managerRegister-container {
+/* src/styles/pages/manager/ManagerRegister.css */
+
+.manager-register-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f8f9fa;
+    min-height: 100vh;
+    background-color: #333; /* 어두운 배경색 */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.managerRegister-container .reg-container {
-    background-color: #fff;
+.manager-register {
+    width: 600px;
     padding: 40px;
+    background-color: #444; /* 다크 그레이 배경색 */
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 30%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
+    color: white; /* 텍스트 색상을 흰색으로 변경 */
 }
 
-.managerRegister-container .logo {
-    font-size: 40px;
+.manager-logo img {
+    height: 100px; /* 로고의 높이 설정 */
+}
+
+.manager-register h1 {
+    font-size: 36px;
     font-weight: bold;
-    color: #6363d2;
+    color: #f06292; /* 포인트 색상 */
+    margin-bottom: 30px;
+}
+
+.manager-form-group {
     margin-bottom: 20px;
+    text-align: left;
+    position: relative;
 }
 
-.managerRegister-container .signup-tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.managerRegister-container .signup-tabs div {
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-}
-
-.managerRegister-container .signup-tabs div.active {
-    border-bottom: 1px solid #6363d2;
-    width: 200px;
+.manager-form-group label {
+    display: block;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
-.managerRegister-container .signup-form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+.manager-form-group input,
+.manager-form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #666; /* 더 어두운 테두리 */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #555; /* 어두운 배경색 */
+    color: white; /* 흰색 텍스트 */
 }
 
-.managerRegister-container .signup-form .input-group {
+.manager-form-group input:focus,
+.manager-form-group select:focus {
+    border-color: #f06292; /* 포인트 색상 */
+    outline: none;
+}
+
+.manager-form-group span {
+    display: block;
+    margin-top: 5px;
+    color: #f06292; /* 에러 메시지 색상 */
+}
+
+.manager-id-group .manager-input-group,
+.manager-phone-group .manager-input-group,
+.manager-verify-group .manager-input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
 }
 
-.managerRegister-container .signup-form .input-group label {
-    width: 14%;
-    margin-right: 10px;
-    font-size: 14px;
-    color: #333;
-    text-align: left;
-}
-
-.managerRegister-container .signup-form .input-group input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.managerRegister-container .signup-form .input-group input::placeholder {
-    font-size: 12px; 
-}
-
-.managerRegister-container .signup-form .input-group button {
+.manager-id-group .manager-check-btn,
+.manager-phone-group .manager-check-btn,
+.manager-verify-group .manager-check-btn {
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
     margin-left: 10px;
-    padding: 10px;
-    border: none;
-    background-color: #6363d2;
-    color: #fff;
+    padding: 10px 20px; /* 버튼의 패딩을 줄여서 크기를 줄임 */
+    border: 1px solid #666; /* 더 어두운 테두리 */
     border-radius: 4px;
+    background-color: #666; /* 어두운 배경색 */
+    color: white;
     cursor: pointer;
-    font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
-.managerRegister-container .signup-form input {
+.manager-id-group .manager-check-btn:hover,
+.manager-phone-group .manager-check-btn:hover,
+.manager-verify-group .manager-check-btn:hover {
+    background-color: #777; /* 버튼 호버시 더 밝은 색상 */
+}
+
+.info-message-success {
+    color: #90caf9 !important; /* 성공 메시지 색상 */
+}
+
+.manager-button1 {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.managerRegister-container .signup-btn {
-    background-color: #6363d2;
-    color: #fff;
-    padding: 10px;
+    padding: 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    margin: 20px auto 0;
-    width: 150px;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    background-color: #f06292; /* 포인트 색상 */
+    color: white;
 }
 
-.managerRegister-container .verification-success {
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    margin-bottom: 10px;
-    color: #6363d2;
-}
-
-.managerRegister-container .error {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #6363d2;
+.manager-button1:hover {
+    background-color: #ec407a; /* 조금 더 진한 핑크 */
 }

@@ -84,6 +84,7 @@ public class MemberController {
         Office office = officeService.getOffice(no);
         int managerNo = office.getManagerNo();
         Manager manager = managerService.findByNo(managerNo);
+        System.out.println("office="+office);
         System.out.println(manager);
         List<Review> reviews = reviewService.getReviews(no);
         if (office != null) {
@@ -96,10 +97,11 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @PatchMapping("/pw")
-    public ResponseEntity<?> updatePw(@RequestBody Map<String, String> request)    {
-        String pw = request.get("pw");
-        boolean result = memberService.updatePw(pw);
+    @PatchMapping("/updatePw")
+    public ResponseEntity<?> updatePw(@RequestBody PwRequest pwRequest)    {
+        int no = pwRequest.getNo();
+        String pw = pwRequest.getPw();
+        boolean result = memberService.updatePw(no, pw);
         if (result) {
             return ResponseEntity.ok(null);
         } else {

@@ -20,12 +20,12 @@ public class GeocodingService {
 
         String uri = UriComponentsBuilder.fromHttpUrl(GEOCODING_API_URL)
                 .queryParam("address", address)
+                .queryParam("components", "country:KR")
                 .queryParam("key", apiKey)
                 .toUriString();
 
         // API 응답 받기
         String response = restTemplate.getForObject(uri, String.class);
-
 
         System.out.println("API Response zip: " + response);
 
@@ -33,6 +33,10 @@ public class GeocodingService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response);
         JsonNode location = root.path("results").path(0).path("geometry").path("location");
+
+        if (location.isMissingNode()) {
+            throw new Exception("No results found for the given address.");
+        }
 
         // 위도와 경도 추출
         double lat = location.path("lat").asDouble();

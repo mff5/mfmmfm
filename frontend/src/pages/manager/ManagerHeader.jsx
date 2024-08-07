@@ -9,7 +9,7 @@ const ManagerHeader = () => {
     return (
         <header className="manager-header">
             <div className="header-content">
-                <img src={Logo1} alt="Belliz Logo" className="header-logo" onClick={() => navigate('/managerPage/register')} />
+                <img src={Logo1} alt="Belliz Logo" className="header-logo" onClick={() => navigate('/')} />
                 <h1>Office24 관리자</h1>
                 <nav className="header-nav">
                     <ul>

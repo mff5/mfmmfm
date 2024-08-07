@@ -40,7 +40,7 @@ public class MessageController {
         Message message = new Message();
         message.setFrom(fromNumber);
         message.setTo(messageRequest.getTo());
-        message.setText("[Office24] 인증코드 (" + code + ")를 입력해주세요");
+        message.setText("[belliz] 인증코드 (" + code + ")를 입력해주세요");
 
         try {
             messageService.send(message);

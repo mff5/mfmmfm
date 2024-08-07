@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.backend.manager.ManagerMapper;
+import com.kh.backend.manager.ManagerService;
 import com.kh.backend.member.SocialService;
 import com.kh.backend.payment.Payment;
 import com.kh.backend.payment.PaymentService;
@@ -30,15 +32,19 @@ public class AuthController {
     private final MemberMapper memberMapper;
     private final PaymentService paymentService;
     private final SocialService socialService;
+    private final ManagerMapper managerMapper;
+    private final ManagerService managerService;
 
     public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, PaymentService paymentService,
-                          SocialService socialService) {
+                          SocialService socialService, ManagerMapper managerMapper, ManagerService managerService) {
         this.jwtUtil = jwtUtil;
         this.authService = authService;
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.paymentService = paymentService;
         this.socialService = socialService;
+        this.managerMapper = managerMapper;
+        this.managerService = managerService;
     }
 
     @PostMapping("/refresh")
@@ -72,7 +78,9 @@ public class AuthController {
 
     @PostMapping("/manager/login")
     public ResponseEntity<?> loginManager(@RequestBody LoginRequest loginRequest) {
+        System.out.println("Fetching manager with ID: " + loginRequest.getId());
         Manager manager = authService.authenticateManager(loginRequest.getId(), loginRequest.getPw());
+        System.out.println("Manager="+manager);
         if (manager != null) {
             String accessToken = jwtUtil.generateAccessToken(manager.getId(), "ROLE_MANAGER", manager.getNo());
             String refreshToken = jwtUtil.generateRefreshToken(manager.getId(), "ROLE_MANAGER", manager.getNo());
@@ -179,5 +187,16 @@ public class AuthController {
         System.out.println("payments: " + payments);
 
         return ResponseEntity.ok(response);
+    }
+    @GetMapping("/manager/{no}")
+    public ResponseEntity<?> getManagerInfo(@PathVariable String no) {
+        int managerNo = Integer.parseInt(no);
+        Manager manager = managerService.findByNo(managerNo);
+        System.out.println("manager="+manager);
+        if (manager != null) {
+            return ResponseEntity.ok(manager);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

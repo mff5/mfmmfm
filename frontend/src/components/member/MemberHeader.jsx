@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '/src/styles/components/member/MemberHeader.css';
 import logo from "/src/assets/logo3.jpg";
-import { getRole, isAuthenticated, removeTokens } from "../../utils/auth.js"; // 선택한 로고 이미지
+import { getRole, isAuthenticated, removeTokens } from "../../utils/auth.js";
 
 const OFFICE_CATEGORIES = [
     "서울", "부산", "대구", "대전", "광주", "인천", "울산", "경기", "강원",
     "충북", "전북", "전남", "경북", "경남", "제주",
 ];
 
-const MemberHeader = () => {
+const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [role, setRole] = useState(null);
@@ -27,24 +27,28 @@ const MemberHeader = () => {
     }, []);
 
     const handleLogout = () => {
-        // 로그아웃 로직 구현 (예: 토큰 삭제, 상태 업데이트)
         removeTokens();
         setIsLoggedIn(false);
         setRole(null);
-        navigate("/"); // 메인 페이지로 이동
+        navigate("/");
+    };
+
+    const logoClick = () => {
+        onCategorySelect("All");
+        navigate("/");
     };
 
     return (
         <header className="member-header">
             <div className="member-header-logo">
-                <img src={logo} alt="Belliz Logo" />
+                <img src={logo} alt="Belliz Logo" onClick={logoClick} />
             </div>
             <nav className="member-header-nav">
                 {OFFICE_CATEGORIES.map((category, index) => (
                     <button
                         key={index}
                         className="member-header-nav-button"
-                        onClick={() => console.log(`${category} 선택됨`)}
+                        onClick={() => onCategorySelect(category)} // 버튼 클릭 시 onCategorySelect 호출
                     >
                         {category}
                     </button>

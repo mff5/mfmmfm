@@ -158,7 +158,7 @@ public class SocialService {
 
         Member member = memberMapper.findByEmail(kakaoUser.getEmail());
         if (member == null) {
-            String pw = "office24";
+            String pw = "belliz";
             registerMember(kakaoUser.getEmail(), pw, kakaoUser.getName(), kakaoUser.getPhone(),
                     kakaoUser.getEmail(), kakaoUser.getBirth(), kakaoUser.getGender());
             member = memberMapper.findByEmail(kakaoUser.getEmail());
@@ -247,7 +247,7 @@ public class SocialService {
 
         Member member = memberMapper.findByEmail(naverUser.getEmail());
         if (member == null) {
-            String generatedPw = "office24";
+            String generatedPw = "belliz";
             registerMember(naverUser.getEmail(), generatedPw, naverUser.getName(), naverUser.getPhone(),
                     naverUser.getEmail(), naverUser.getBirth(), naverUser.getGender());
             member = memberMapper.findByEmail(naverUser.getEmail());
@@ -366,7 +366,7 @@ public class SocialService {
 
         Member member = memberMapper.findByEmail(googleUser.getEmail());
         if (member == null) {
-            String pw = "office24";
+            String pw = "belliz";
             registerMember(googleUser.getEmail(), pw, googleUser.getName(), googleUser.getPhone(),
                     googleUser.getEmail(), googleUser.getBirth(), googleUser.getGender());
             member = memberMapper.findByEmail(googleUser.getEmail());

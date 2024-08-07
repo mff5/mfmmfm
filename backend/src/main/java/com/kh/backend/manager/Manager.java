@@ -4,11 +4,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 
 @Getter
 @Setter
+@Data
 public class Manager {
     private int no;
     @NotBlank(message = "아이디는 필수 입력 값입니다.")
@@ -32,4 +38,6 @@ public class Manager {
 
     @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date regDate;
 }

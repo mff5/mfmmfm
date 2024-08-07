@@ -42,6 +42,7 @@ function App() {
 
         <Route path="/manager/officeEdit/:no" element={<OfficeEdit />}/>
         <Route path="/managerTest" element={<ManagerTest/>}/>
+
         <Route path="/manager/managerPage/*" element={<ManagerPage />} />
 
 

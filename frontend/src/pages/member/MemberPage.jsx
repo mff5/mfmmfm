@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
-import {isAuthenticated, getAccessToken, getNo} from "../../utils/auth.js";
-import MemberHeader from "../../components/member/MemberHeader.jsx";
-import MemberFooter from "../../components/member/MemberFooter.jsx";
+import { isAuthenticated, getAccessToken, getNo } from "../../utils/auth";
+import MemberHeader from "../../components/member/MemberHeader";
+import MemberFooter from "../../components/member/MemberFooter";
+import instance from "../../utils/axiosConfig";
 import '/src/styles/pages/member/MemberPage.css';
-import { pwCheck, pwCheckCheck } from "../../utils/MemberRegister.js";
-import MemberDetails from "/src/components/member/MemberDetails.jsx";
-import instance from "../../utils/axiosConfig.js";
+import {pwCheck, pwCheckCheck} from "../../utils/MemberRegister.js";
+import MemberPayments from "../../components/member/MemberPayments.jsx";
+import MemberInfo from "../../components/member/MemberInfo.jsx";
 
 const MemberMyPage = () => {
     const navigate = useNavigate();
@@ -30,10 +30,8 @@ const MemberMyPage = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:8080/auth/member/${getNo()}`, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
+                const response = await instance.get(`http://localhost:8080/auth/member/${getNo()}`, {
+                    headers: { Authorization: `Bearer ${accessToken}` }
                 });
                 setMember(response.data.member);
                 setPayments(response.data.payments);
@@ -45,7 +43,7 @@ const MemberMyPage = () => {
         };
 
         fetchMemberInfo();
-    }, [activeTab, accessToken, navigate]);
+    }, [activeTab, navigate]);
 
     const handlePwChange = () => {
         if (!pwRef.current || !confirmPwRef.current) {
@@ -64,9 +62,7 @@ const MemberMyPage = () => {
         }
 
         if (confirm("비밀번호를 재설정하시겠습니까?")) {
-            instance.patch('http://localhost:8080/member/pw', { pw: confirmPwRef.current.value },
-                {
-                    headers: { Authorization: `Bearer ${accessToken}` }})
+            instance.patch('http://localhost:8080/member/updatePw', { no: getNo(), pw: confirmPwRef.current.value })
                 .then(response => {
                     if (response.status === 200) {
                         alert("비밀번호 변경 성공");
@@ -109,23 +105,26 @@ const MemberMyPage = () => {
                         </ul>
                     </div>
                     <div className="member-my-page-content-section">
-                        <MemberDetails
-                            activeTab={activeTab}
-                            member={member}
-                            payments={payments}
-                            newPw={newPw}
-                            confirmNewPw={confirmNewPw}
-                            newNickname={newNickname}
-                            setNewPw={setNewPw}
-                            setConfirmNewPw={setConfirmNewPw}
-                            setNewNickname={setNewNickname}
-                            handlePwChange={handlePwChange}
-                            handleNicknameChange={handleNicknameChange}
-                            pwCheck={pwCheck}
-                            pwCheckCheck={pwCheckCheck}
-                            pwRef={pwRef}
-                            confirmPwRef={confirmPwRef}
-                        />
+                        {activeTab === 'info' && (
+                            <MemberInfo
+                                member={member}
+                                newPw={newPw}
+                                confirmNewPw={confirmNewPw}
+                                newNickname={newNickname}
+                                setNewPw={setNewPw}
+                                setConfirmNewPw={setConfirmNewPw}
+                                setNewNickname={setNewNickname}
+                                handlePwChange={handlePwChange}
+                                handleNicknameChange={handleNicknameChange}
+                                pwCheck={pwCheck}
+                                pwCheckCheck={pwCheckCheck}
+                                pwRef={pwRef}
+                                confirmPwRef={confirmPwRef}
+                            />
+                        )}
+                        {activeTab === 'payments' && (
+                            <MemberPayments payments={payments} />
+                        )}
                     </div>
                 </div>
             </div>

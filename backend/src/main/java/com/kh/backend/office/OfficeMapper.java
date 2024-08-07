@@ -44,4 +44,7 @@ public interface OfficeMapper {
     int getManagerNo(int no);
 
     void insertOffice(Office office);
+    List<Office> getAllOffices(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability);
+    List<Office> getByCategory(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability,
+                               @Param("category") String category);
 }

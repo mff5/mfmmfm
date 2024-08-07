@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,24 +57,6 @@ public class OfficeController {
         return response;
     }
 
-    // availability, searchText에 따라 오피스 목록 조회
-    @GetMapping("/manager/office/{no}")
-    public Map<String, Object> getAllOffices(@PathVariable int no, @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) Integer availability,
-            @RequestParam(required = false) String searchText) {
-
-        List<Office> offices = officeService.getOffices(no, page, size, availability, searchText); // 조건에 맞는 오피스 목록
-        int total = officeService.getOfficeCount(no, availability, searchText); // 조건에 맞는 오피스 수
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("offices", offices);
-        response.put("total", total);
-        response.put("page", page);
-        response.put("size", size);
-        
-        return response;
-    }
-
     // 오피스 no로 오피스 정보 삭제
     @DeleteMapping("/manager/office/delete/{no}")
     public ResponseEntity<Void> deleteOffice(@PathVariable int no) {
@@ -87,14 +66,12 @@ public class OfficeController {
     @SneakyThrows
     @PostMapping("/office/register")
     public ResponseEntity<Void> officeRegister( @RequestParam("title") String title,
-                                                @RequestParam("managerNo") String managerNo,
+                                                @RequestParam("managerNo") int managerNo,
                                                 @RequestParam("address") String address,
                                                 @RequestParam("zipCode") String zipCode,
-                                                @RequestParam("latitude") String latitude,
-                                                @RequestParam("longitude") String longitude,
                                                 @RequestParam("content") String content,
-                                                @RequestParam("price") String price,
-                                                @RequestParam("capacity") String capacity,
+                                                @RequestParam("price") int price,
+                                                @RequestParam("capacity") int capacity,
                                                 @RequestParam("availability") String availability,
                                                 @RequestParam(value = "titleImg", required = false) MultipartFile titleImg,
                                                 @RequestParam(value = "subImg1", required = false) MultipartFile subImg1,
@@ -105,15 +82,15 @@ public class OfficeController {
 
         Office office = new Office();
 
-        office.setManagerNo(Integer.parseInt(managerNo));
+        office.setManagerNo(managerNo);
         office.setTitle(title);
         office.setAddress(address);
         office.setZipCode(zipCode);
         office.setLatitude(geocodingService.getCoordinates(zipCode).getLatitude());
         office.setLongitude(geocodingService.getCoordinates(zipCode).getLongitude());
         office.setContent(content);
-        office.setPrice(Integer.parseInt(price));
-        office.setCapacity(Integer.parseInt(capacity));
+        office.setPrice(price);
+        office.setCapacity(capacity);
         office.setTitleImg(titleImgUrl);
         office.setSubImg1(subImg1Url);
         office.setSubImg2(subImg2Url);
@@ -163,4 +140,44 @@ public class OfficeController {
         return ResponseEntity.ok(office);
 
     }
+    // availability, searchText에 따라 오피스 목록 조회
+    @GetMapping("/manager/office/{no}")
+    public Map<String, Object> getAllOffices(@PathVariable int no, @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) Integer availability,
+                                             @RequestParam(required = false) String searchText) {
+
+        List<Office> offices = officeService.getOffices(no, page, size, availability, searchText); // 조건에 맞는 오피스 목록
+        int total = officeService.getOfficeCount(no, availability, searchText); // 조건에 맞는 오피스 수
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("offices", offices);
+        response.put("total", total);
+        response.put("page", page);
+        response.put("size", size);
+
+        return response;
+    }
+    @GetMapping("/offices")
+    public Map<String, Object> getOffices(@RequestParam(defaultValue = "1") int page,
+                                          @RequestParam(defaultValue = "50") int size,
+                                          @RequestParam(required = false) Integer availability,
+                                          @RequestParam(required = false) String category) {
+        System.out.println("page=" + page);
+        System.out.println("size=" + size);
+        System.out.println("availability=" + availability);
+        System.out.println("category=" + category);
+
+        List<Office> offices;
+        if (category == null || category.equalsIgnoreCase("All")) {
+            offices = officeService.getAllOffices(page, size, availability);
+        } else {
+            offices = officeService.getByCategory(page, size, availability, category);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("offices", offices);
+        return response;
+    }
+
+
 }

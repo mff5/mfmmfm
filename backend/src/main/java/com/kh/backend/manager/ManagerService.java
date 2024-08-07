@@ -34,6 +34,7 @@ public class ManagerService {
         return managerMapper.findById(id) == null;
     }
     public Manager findByNo(int no) {
+        System.out.println("managerMapper.findByNo="+managerMapper.findByNo(no));
         return managerMapper.findByNo(no);
     }
 }

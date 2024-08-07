@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { setTokens } from '../../utils/auth';
 import '/src/styles/pages/manager/ManagerLogin.css';
+import instance from "../../utils/axiosConfig.js";
 
 const ManagerLogin = () => {
     const [formData, setFormData] = useState({ id: '', pw: '' });
@@ -15,19 +16,18 @@ const ManagerLogin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/auth/manager/login', formData, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
+        console.log('forData='+formData)
+        instance.post('http://localhost:8080/auth/manager/login', formData, {
+
             withCredentials: true
         })
             .then(response => {
                 const { accessToken, refreshToken, no } = response.data;
                 setTokens(accessToken, refreshToken, no);
-                navigate('/manager/dashboard');
+                navigate('/manager/managerPage');
             })
             .catch(error => {
-                alert(error.response?.data || '알 수 없는 오류가 발생했습니다.');
+                alert(error.response?.data);
             });
     };
 
@@ -59,6 +59,8 @@ const ManagerLogin = () => {
                 <div className="login-help-links">
                     <Link to="/manager/findId">아이디 찾기</Link>
                     <Link to="/manager/resetPw">비밀번호 재설정</Link>
+                    <Link to="/manager/register">매니저 회원가입</Link>
+
                 </div>
                 <button type="submit" className="login-submit-button">로그인</button>
             </form>

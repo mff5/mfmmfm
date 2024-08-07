@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '/src/styles/pages/manager/ManagerInfo.css';
+import instance from "../../utils/axiosConfig.js";
+import {getNo} from "../../utils/auth.js";
 
 const ManagerInfo = () => {
     const [manager, setManager] = useState({
@@ -9,7 +11,7 @@ const ManagerInfo = () => {
         name: '',
         phone: '',
         email: '',
-        reg_date: ''
+        regDate: ''
     });
 
     useEffect(() => {
@@ -20,11 +22,11 @@ const ManagerInfo = () => {
             name: '홍길동',
             phone: '01012345678',
             email: 'manager@example.com',
-            reg_date: '2024-01-01'
+            regDate: '2024-01-01'
         };
 
         // 실제 데이터 가져오기
-        axios.get('http://localhost:8080/api/manager/1')
+        instance.get(`http://localhost:8080/auth/manager/${getNo()}`)
             .then(response => {
                 setManager(response.data);
             })
@@ -63,7 +65,7 @@ const ManagerInfo = () => {
                     )}
                     <div className="manager-info-field">
                         <label>Registration Date:</label>
-                        <span>{manager.reg_date}</span>
+                        <span>{manager.regDate}</span>
                     </div>
                 </div>
             </div>

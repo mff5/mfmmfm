@@ -1,0 +1,72 @@
+.member-payments-list {
+    margin-top: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.member-payments-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.member-payments-item:hover {
+    background-color: #f1f1f1;
+}
+
+.member-payments-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-payments-details p {
+    margin: 5px 0;
+}
+
+.member-payments-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    background-color: #dc3545; /* 빨간색 배경 */
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #c82333; /* 빨간색 hover 효과 */
+    transform: translateY(-2px);
+}
+
+.review-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    background-color: #28a745; /* 초록색 배경 */
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+}
+
+.review-button:hover {
+    background-color: #218838; /* 초록색 hover 효과 */
+    transform: translateY(-2px);
+}

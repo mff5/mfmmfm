@@ -6,13 +6,18 @@ import logo from '/src/assets/logo1.png'; // 로고 이미지
 import '/src/styles/Login.css';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('member');
+
+    const logoClick = () => {
+        navigate("/")
+    }
 
     return (
         <div className="login-container">
             <div className="login-header">
                 <div className="login-logo-container">
-                    <img src={logo} alt="Logo" className="login-logo" />
+                    <img src={logo} alt="Logo" className="login-logo" onClick={logoClick}/>
                 </div>
                 <div className="login-tabs">
                     <button

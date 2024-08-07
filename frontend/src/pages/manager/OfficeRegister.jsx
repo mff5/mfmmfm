@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '/src/styles/pages/manager/OfficeRegister.css';
+import instance from "../../utils/axiosConfig.js";
+import { useNavigate } from "react-router-dom";
+import {getNo} from "../../utils/auth.js";
 
 const OfficeRegister = () => {
-    const [office, setOffice] = useState({
+    const navigate = useNavigate();
+
+    const initialState = {
         no: '',
-        manager_no: '',
+        manager_no: getNo(),
         title: '',
         address: '',
         zipCode: '',
         latitude: '',
         longitude: '',
         content: '',
-        price: '',
-        capacity: '',
+        price: 0,
+        capacity: 0,
         titleImg: null,
         subImg1: null,
         subImg2: null,
         availability: '1',
-    });
+    };
 
+    const [office, setOffice] = useState(initialState);
     const [previewImages, setPreviewImages] = useState({
         titleImg: '',
         subImg1: '',
@@ -29,7 +35,6 @@ const OfficeRegister = () => {
     const openPostcodePopup = () => {
         new window.daum.Postcode({
             oncomplete: function(data) {
-                // 선택한 주소 정보를 사용하여 상태 업데이트
                 setOffice(prevState => ({
                     ...prevState,
                     address: data.address,
@@ -63,7 +68,7 @@ const OfficeRegister = () => {
 
         const formData = new FormData();
         formData.append('title', office.title);
-        formData.append('managerNo', '5');
+        formData.append('managerNo', getNo());
         formData.append('address', office.address);
         formData.append('zipCode', office.zipCode);
         formData.append('latitude', office.latitude);
@@ -76,13 +81,20 @@ const OfficeRegister = () => {
         formData.append('subImg1', office.subImg1);
         formData.append('subImg2', office.subImg2);
 
-        axios.post('http://localhost:8080/office/register', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        instance.post('http://localhost:8080/office/register', formData)
             .then(response => {
                 console.log('Form submitted successfully', response.data);
+                alert("오피스 등록 성공");
+
+                // 폼 초기화
+                setOffice(initialState);
+                setPreviewImages({
+                    titleImg: '',
+                    subImg1: '',
+                    subImg2: ''
+                });
+
+                navigate("/manager/managerPage/register");
             })
             .catch(error => {
                 console.error('Error submitting form', error);
@@ -119,7 +131,7 @@ const OfficeRegister = () => {
                                type="text"
                                placeholder="오피스 제목 입력"
                                value={office.title || ''}
-                               onChange={(e) => setOffice({...office, title: e.target.value})}
+                               onChange={(e) => setOffice({...office, title: e.target.value})} required
                         />
                     </div>
                     <div className="form-group">
@@ -127,7 +139,7 @@ const OfficeRegister = () => {
                         <textarea id="content"
                                   placeholder="오피스에 대한 상세 설명 입력"
                                   value={office.content || ''}
-                                  onChange={(e) => setOffice({...office, content: e.target.value})}
+                                  onChange={(e) => setOffice({...office, content: e.target.value})} required
                         />
                     </div>
                     <div className="form-group">
@@ -136,17 +148,17 @@ const OfficeRegister = () => {
                                type="text"
                                placeholder="오피스 주소 입력"
                                value={office.address || ''}
-                               onChange={(e) => setOffice({...office, address: e.target.value})}
+                               onChange={(e) => setOffice({...office, address: e.target.value})} required readOnly
                         />
                         <button type="button" onClick={openPostcodePopup}>주소 찾기</button>
                     </div>
                     <div className="form-group">
                         <label htmlFor="capacity">최대 인원</label>
                         <input id="capacity"
-                               type="text"
+                               type="number"
                                placeholder="수용 가능 인원 입력"
                                value={office.capacity || ''}
-                               onChange={(e) => setOffice({...office, capacity: e.target.value})}
+                               onChange={(e) => setOffice({...office, capacity: e.target.value})} required
                         />
                     </div>
                     <div className="form-group">
@@ -161,10 +173,10 @@ const OfficeRegister = () => {
                     <div className="form-group">
                         <label htmlFor="price">가격</label>
                         <input id="price"
-                               type="text"
+                               type="number"
                                placeholder="가격 입력 (원)"
                                value={office.price || ''}
-                               onChange={(e) => setOffice({...office, price: e.target.value})}
+                               onChange={(e) => setOffice({...office, price: e.target.value})} required
                         />
                     </div>
                     <div className="form-group">
@@ -173,13 +185,13 @@ const OfficeRegister = () => {
                                type="file"
                                name="titleImg"
                                accept="image/*"
-                               onChange={handleImageChange}
+                               onChange={handleImageChange} required
                         />
                     </div>
                     <div className="form-group">
                         <label htmlFor="availability">사용 가능 여부</label>
                         <select id="availability" value={office.availability || ''}
-                                onChange={(e) => setOffice({...office, availability: e.target.value})}>
+                                onChange={(e) => setOffice({...office, availability: e.target.value})}> required
                             <option value="1">가능</option>
                             <option value="0">불가능</option>
                         </select>
@@ -191,7 +203,7 @@ const OfficeRegister = () => {
                                type="file"
                                name="subImg1"
                                accept="image/*"
-                               onChange={handleImageChange}
+                               onChange={handleImageChange} required
                         />
                     </div>
                     <div className="form-group">
@@ -203,11 +215,9 @@ const OfficeRegister = () => {
                                type="file"
                                name="subImg2"
                                accept="image/*"
-                               onChange={handleImageChange}
+                               onChange={handleImageChange} required
                         />
                     </div>
-
-
                 </form>
             </div>
         </div>

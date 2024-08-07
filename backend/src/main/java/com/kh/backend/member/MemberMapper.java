@@ -13,5 +13,5 @@ public interface MemberMapper {
     List<String> findIdByPhone(String phone);
     void resetPw(String pw, String id);
     Member findByNo(int no);
-    int updatePw(String pw);
+    int updatePw(int no, String pw);
 }

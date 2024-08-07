@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import '/src/styles/pages/manager/OfficeList.css';
 import {useNavigate} from "react-router-dom";
+import instance from "../../utils/axiosConfig.js";
+import {getNo} from "../../utils/auth.js";
 
 const OfficeList = () => {
     const navigate = useNavigate();
@@ -12,30 +14,36 @@ const OfficeList = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/manager/office/5`, {
-            params: {
-                page: page,
-                size: size
-            }
-        })
-            .then((response) => {
+        const fetchData = async () => {
+            try {
+                const response = await instance.get(`http://localhost:8080/manager/office/${getNo()}`, {
+                    params: {
+                        page: page,
+                        size: size
+                    }
+                });
                 setOffices(response.data.offices);
                 setTotal(response.data.total);
                 setPage(response.data.page);
                 setSize(response.data.size);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Error fetching data:", error);
                 setError(error);
-            });
+                navigate('/login');
+            }
+        };
+
+        // 비동기 함수 호출
+        fetchData();
     }, [page, size]);
 
-    const handleDelete = (officeId) => {
+
+    const handleDelete = async (officeNo) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
-            axios.delete(`http://localhost:8080/manager/office/${officeId}`)
+            await instance.delete(`http://localhost:8080/manager/office/${officeNo}`)
                 .then(response => {
                     console.log("Office deleted:", response.data);
-                    setOffices(offices.filter(office => office.no !== officeId));
+                    setOffices(offices.filter(office => office.no !== officeNo));
                 })
                 .catch(error => {
                     console.error("Error deleting office:", error);

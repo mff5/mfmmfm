@@ -65,8 +65,7 @@ public class MemberService {
             return false;
         }
     }
-    public boolean updatePw(String pw)  {
-        System.out.println(passwordEncoder.encode(pw));
-        return memberMapper.updatePw(passwordEncoder.encode(pw)) > 0;
+    public boolean updatePw(int no,String pw)  {
+        return memberMapper.updatePw(no, passwordEncoder.encode(pw)) > 0;
     }
 }
