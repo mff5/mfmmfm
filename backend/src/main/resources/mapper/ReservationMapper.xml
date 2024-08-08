@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kh.backend.payment.PaymentMapper">
-    <resultMap id="paymentResultMap" type="com.kh.backend.payment.Payment">
+<mapper namespace="com.kh.backend.reservation.ReservationMapper">
+    <resultMap id="reservationMap" type="com.kh.backend.reservation.Reservation">
         <result property="no" column="no"/>
         <result property="memberNo" column="member_no"/>
         <result property="officeNo" column="office_no"/>
@@ -12,7 +12,8 @@
         <result property="price" column="price"/>
         <result property="regDate" column="reg_date" jdbcType="DATE"/>
     </resultMap>
-    <select id="getBookingsByManager" resultType="map">
+    <!--
+    <select id="getReservationsByManager" resultType="map">
         SELECT *
         FROM (SELECT b.no       AS booking_no,
                      b.reg_date AS booking_date,
@@ -21,7 +22,7 @@
                      b.start_date,
                      b.end_date,
                      ROW_NUMBER()  OVER (ORDER BY b.reg_date DESC) AS rn
-              FROM booking b
+              FROM RESERVATION b
                        JOIN
                    office o ON b.office_no = o.no
                        JOIN
@@ -31,21 +32,25 @@
               WHERE mgr.no = #{no})
         WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{limit}
     </select>
+    -->
 
-    <select id="countBookingsByManager" resultType="int">
+    <select id="countReservationsByManager" resultType="int">
         SELECT COUNT(*)
-        FROM booking b
+        FROM reservation b
                  JOIN office o ON b.office_no = o.no
                  JOIN manager m ON o.manager_no = m.no
         WHERE m.no = #{no}
     </select>
-    <select id="getPaymentsByMemberNo" resultMap="paymentResultMap">
+    <select id="getReservationsByMemberNo" resultMap="reservationMap">
         select *
-        from payment
+        from RESERVATION
         where member_no = #{memberNo}
     </select>
-    <insert id="insertPayment">
-        insert into payment(office_no, member_no, guests, payment_method, start_date, end_date, price)
+    <insert id="insertReservation">
+        insert into RESERVATION(office_no, member_no, guests, payment_method, start_date, end_date, price)
         values (#{officeNo}, #{memberNo}, #{guests}, #{paymentMethod}, #{startDate}, #{endDate}, #{price})
     </insert>
+    <delete id="deleteReservation">
+        delete from RESERVATION where no = #{no}
+    </delete>
 </mapper>

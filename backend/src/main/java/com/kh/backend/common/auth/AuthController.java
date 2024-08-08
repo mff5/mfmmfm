@@ -8,8 +8,8 @@ import java.util.Map;
 import com.kh.backend.manager.ManagerMapper;
 import com.kh.backend.manager.ManagerService;
 import com.kh.backend.member.SocialService;
-import com.kh.backend.payment.Payment;
-import com.kh.backend.payment.PaymentService;
+import com.kh.backend.reservation.Reservation;
+import com.kh.backend.reservation.ReservationService;
 import com.kh.backend.member.MemberMapper;
 import com.kh.backend.member.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,18 +30,18 @@ public class AuthController {
     private final AuthService authService;
     private final MemberService memberService;
     private final MemberMapper memberMapper;
-    private final PaymentService paymentService;
+    private final ReservationService reservationService;
     private final SocialService socialService;
     private final ManagerMapper managerMapper;
     private final ManagerService managerService;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, PaymentService paymentService,
+    public AuthController(JwtUtil jwtUtil, AuthService authService, MemberService memberService, MemberMapper memberMapper, ReservationService reservationService,
                           SocialService socialService, ManagerMapper managerMapper, ManagerService managerService) {
         this.jwtUtil = jwtUtil;
         this.authService = authService;
         this.memberService = memberService;
         this.memberMapper = memberMapper;
-        this.paymentService = paymentService;
+        this.reservationService = reservationService;
         this.socialService = socialService;
         this.managerMapper = managerMapper;
         this.managerService = managerService;
@@ -171,20 +171,20 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        List<Payment> payments = null;
+        List<Reservation> reservations = null;
         try {
-            payments = paymentService.getPaymentsByMemberNo(memberNo);
-            System.out.println("Payments retrieved: " + payments.size());
+            reservations = reservationService.getReservationsByMemberNo(memberNo);
+            System.out.println("reservations retrieved: " + reservations.size());
         } catch (Exception e) {
-            System.out.println("Error fetching payments: " + e.getMessage());
+            System.out.println("Error fetching reservations: " + e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching payments");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching reservations");
         }
 
         response.put("member", member);
         System.out.println("Member details: " + member);
-        response.put("payments", payments);
-        System.out.println("payments: " + payments);
+        response.put("reservations", reservations);
+        System.out.println("reservations: " + reservations);
 
         return ResponseEntity.ok(response);
     }

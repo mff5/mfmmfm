@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import '/src/styles/pages/manager/OfficeList.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import instance from "../../utils/axiosConfig.js";
-import {getNo} from "../../utils/auth.js";
+import { getNo } from "../../utils/auth.js";
+import '/src/styles/pages/manager/OfficeList.css';
 
 const OfficeList = () => {
     const navigate = useNavigate();
@@ -33,20 +32,20 @@ const OfficeList = () => {
             }
         };
 
-        // 비동기 함수 호출
         fetchData();
     }, [page, size]);
 
-
     const handleDelete = async (officeNo) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
-            await instance.delete(`http://localhost:8080/manager/office/${officeNo}`)
+            await instance.delete(`http://localhost:8080/manager/office/delete/${officeNo}`)
                 .then(response => {
-                    console.log("Office deleted:", response.data);
-                    setOffices(offices.filter(office => office.no !== officeNo));
+                    if (response.status === 200) {
+                        alert("오피스 삭제 성공");
+                        setOffices(offices.filter(office => office.no !== officeNo));
+                    }
                 })
                 .catch(error => {
-                    console.error("Error deleting office:", error);
+                    alert("오피스 삭제 실패");
                     setError(error);
                 });
         }
@@ -66,14 +65,14 @@ const OfficeList = () => {
                         </div>
                         <div className="office-details">
                             <h3>{office.title}</h3>
-                            <p>{office.price}</p>
-                            <p>{office.capacity}</p>
-                            <p>{office.availability}</p>
+                            <p>{office.address}</p>
+                            <p>Price: {office.price}/1일</p>
+                            <p>Capacity: {office.capacity}</p>
+                            <p>{office.availability === 1 ? 'Available' : 'Unavailable'}</p>
                         </div>
                         <div className="button-group">
-                            <button className="edit-button" onClick={() => navigate(`/manager/officeEdit/${office.no}`)}>수정하기</button>
+                            <button className="edit-button" onClick={() => navigate(`/manager/managerPage/office/edit/${office.no}`)}>수정하기</button>
                             <button className="delete-button" onClick={() => handleDelete(office.no)}>삭제하기</button>
-                            <button className="review-button" onClick={() => navigate(`/manager/officeReviews/${office.no}`)}>리뷰 보기</button>
                         </div>
                     </div>
                 ))}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import MemberHeader from "../../components/member/MemberHeader";
-import MemberFooter from "../../components/member/MemberFooter";
-import OfficeItem from "../../components/member/OfficeItem";
-import "../../styles/pages/member/MemberMain.css";
+import MemberHeader from "../../components/member/MemberHeader.jsx";
+import MemberFooter from "../../components/member/MemberFooter.jsx";
+import OfficeItem from "../../components/member/OfficeItem.jsx";
+import "../../styles/pages/common/Main.css";
 import instance from "../../utils/axiosConfig.js";
 import {useParams} from "react-router-dom";
 
-const MemberMain = () => {
+const Main = () => {
   const {category} = useParams();
   const [offices, setOffices] = useState([]);
 
@@ -46,4 +46,4 @@ const MemberMain = () => {
   );
 };
 
-export default MemberMain;
+export default Main;

@@ -12,4 +12,10 @@ public class ReviewService {
     public List<Review> getReviews(int officeNo) {
         return reviewMapper.getReviews(officeNo);
     }
+    public boolean insertReview(Review review) {
+        return reviewMapper.insertReview(review) > 0;
+    }
+    public List<Review> getReviewsByMemberNo(int memberNo) {
+        return reviewMapper.getReviewsByMemberNo(memberNo);
+    }
 }

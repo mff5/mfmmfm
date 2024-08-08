@@ -87,4 +87,7 @@ public class OfficeService {
         int offset = (page - 1) * size;
         return officeMapper.getByCategory(offset, size, availability, category);
     }
+    public boolean updateOffice(Office office) {
+        return officeMapper.updateOffice(office) > 0;
+    }
 }

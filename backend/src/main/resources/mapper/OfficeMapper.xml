@@ -199,5 +199,9 @@
         )
         WHERE rnum &gt; #{offset}
     </select>
-
+    <update id="updateOffice">
+        update OFFICE set title =#{title},manager_no=#{managerNo} ,address=#{address}, content =#{content}, zip_code = #{zipCode},
+                          capacity = #{capacity}, price = #{price}, availability = #{availability},
+                          latitude = #{latitude}, longitude = #{longitude} where no = #{no}
+    </update>
 </mapper>

@@ -42,7 +42,7 @@ public class OfficeController {
         stats.put("totalRating", officeService.getTotalRating(no));         // 총 평점 (보유한 전체 오피스)
         stats.put("totalActive", officeService.getActiveOfficeCount(no));   // 현재 이용 중인 숫자
 
-        List<Map<String, Object>> monthlyRevenue = officeService.getMonthlyRevenue(no); 
+        List<Map<String, Object>> monthlyRevenue = officeService.getMonthlyRevenue(no);
         stats.put("monthlyRevenue", monthlyRevenue); // 월 매출
         List<Map<String, Object>> genderRatio = officeService.getTotalGenderRatio(no);
         stats.put("genderRatio", genderRatio); // 이용자 성비
@@ -54,8 +54,8 @@ public class OfficeController {
     // 오피스 상태 목록 조회 (페이지네이션)
     @GetMapping("/manager/office/status/{no}")
     public Map<String, Object> getOfficeStatusPaged(@PathVariable int no,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                                    @RequestParam(defaultValue = "1") int page,
+                                                    @RequestParam(defaultValue = "5") int size) {
         List<Office> offices = officeService.getOfficeStatusPaged(no, page, size); // 오피스 목록
         int total = officeService.getOfficeStatusCount(no); // 오피스 수
 
@@ -64,7 +64,7 @@ public class OfficeController {
         response.put("total", total);
         response.put("page", page);
         response.put("size", size);
-        
+
         return response;
     }
 
@@ -74,19 +74,19 @@ public class OfficeController {
         officeService.deleteOffice(no);
         return ResponseEntity.ok().build();
     }
-    @SneakyThrows
-    @PostMapping("/office/register")
-    public ResponseEntity<Void> officeRegister( @RequestParam("title") String title,
-                                                @RequestParam("managerNo") int managerNo,
-                                                @RequestParam("address") String address,
-                                                @RequestParam("zipCode") String zipCode,
-                                                @RequestParam("content") String content,
-                                                @RequestParam("price") int price,
-                                                @RequestParam("capacity") int capacity,
-                                                @RequestParam("availability") String availability,
-                                                @RequestParam(value = "titleImg", required = false) MultipartFile titleImg,
-                                                @RequestParam(value = "subImg1", required = false) MultipartFile subImg1,
-                                                @RequestParam(value = "subImg2", required = false) MultipartFile subImg2) {
+
+    @PostMapping("/manager/office/register")
+    public ResponseEntity<Void> officeRegister(@RequestParam("title") String title,
+                                               @RequestParam("managerNo") int managerNo,
+                                               @RequestParam("address") String address,
+                                               @RequestParam("zipCode") String zipCode,
+                                               @RequestParam("content") String content,
+                                               @RequestParam("price") int price,
+                                               @RequestParam("capacity") int capacity,
+                                               @RequestParam("availability") String availability,
+                                               @RequestParam(value = "titleImg", required = false) MultipartFile titleImg,
+                                               @RequestParam(value = "subImg1", required = false) MultipartFile subImg1,
+                                               @RequestParam(value = "subImg2", required = false) MultipartFile subImg2) throws Exception {
         String titleImgUrl = saveFile(titleImg);
         String subImg1Url = saveFile(subImg1);
         String subImg2Url = saveFile(subImg2);
@@ -107,18 +107,20 @@ public class OfficeController {
         office.setSubImg2(subImg2Url);
         office.setAvailability(Integer.parseInt(availability));
 
-        System.out.println("office="+office);
+
 
         try {
-             officeService.insertOffice(office);
+            officeService.insertOffice(office);
             return ResponseEntity.ok().build();
-        } catch (Exception e)   {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
 
     }
+
     @Value("${file.upload-dir}")
     private String uploadDir;
+
     private String saveFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return null;
@@ -135,7 +137,8 @@ public class OfficeController {
             return null;
         }
     }
-    @GetMapping("/manager/officeEdit/{no}")
+
+    @GetMapping("/manager/office/edit/{no}")
     public ResponseEntity<?> editOffice(@PathVariable int no) {
         Office office = officeService.getOffice(no);
         if (office != null) {
@@ -144,13 +147,43 @@ public class OfficeController {
             return ResponseEntity.badRequest().build();
         }
     }
-    @PutMapping("/manager/officeEdit/{no}")
-    public ResponseEntity<?> officeEdit(@PathVariable int no)   {
-        Office office = officeService.getOffice(no);
 
-        return ResponseEntity.ok(office);
+    @PatchMapping("/manager/office/edit/{no}")
+    public ResponseEntity<Void> updateOffice(@RequestParam("no") int no,
+                                             @RequestParam("title") String title,
+                                             @RequestParam("managerNo") int managerNo,
+                                             @RequestParam("address") String address,
+                                             @RequestParam("zipCode") String zipCode,
+                                             @RequestParam("content") String content,
+                                             @RequestParam("price") int price,
+                                             @RequestParam("capacity") int capacity,
+                                             @RequestParam("availability") String availability) throws Exception {
+
+        Office office = new Office();
+
+        office.setNo(no);
+        office.setManagerNo(managerNo);
+        office.setTitle(title);
+        office.setAddress(address);
+        office.setZipCode(zipCode);
+        office.setLatitude(geocodingService.getCoordinates(zipCode).getLatitude());
+        office.setLongitude(geocodingService.getCoordinates(zipCode).getLongitude());
+        office.setContent(content);
+        office.setPrice(price);
+        office.setCapacity(capacity);
+        office.setAvailability(Integer.parseInt(availability));
+
+
+
+        try {
+            officeService.updateOffice(office);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
 
     }
+
     // availability, searchText에 따라 오피스 목록 조회
     @GetMapping("/manager/office/{no}")
     public Map<String, Object> getAllOffices(@PathVariable int no, @RequestParam(defaultValue = "1") int page,
@@ -168,15 +201,12 @@ public class OfficeController {
 
         return response;
     }
+
     @GetMapping("/offices")
     public Map<String, Object> getOffices(@RequestParam(defaultValue = "1") int page,
                                           @RequestParam(defaultValue = "50") int size,
                                           @RequestParam(required = false) Integer availability,
                                           @RequestParam(required = false) String category) {
-        System.out.println("page=" + page);
-        System.out.println("size=" + size);
-        System.out.println("availability=" + availability);
-        System.out.println("category=" + category);
 
         List<Office> offices;
         if (category == null || category.equalsIgnoreCase("All")) {
@@ -187,15 +217,16 @@ public class OfficeController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("offices", offices);
+        response.put("page", page);
+        response.put("size", size);
         return response;
     }
+
     @GetMapping("/office/{no}")
     public ResponseEntity<?> getOffice(@PathVariable int no) {
         Office office = officeService.getOffice(no);
         int managerNo = office.getManagerNo();
         Manager manager = managerService.findByNo(managerNo);
-        System.out.println("office="+office);
-        System.out.println(manager);
         List<Review> reviews = reviewService.getReviews(no);
         if (office != null) {
             Map<String, Object> response = new HashMap<>();

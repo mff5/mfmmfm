@@ -47,4 +47,5 @@ public interface OfficeMapper {
     List<Office> getAllOffices(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability);
     List<Office> getByCategory(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability,
                                @Param("category") String category);
+    int updateOffice(Office office);
 }

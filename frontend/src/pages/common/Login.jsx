@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import MemberLogin from './member/MemberLogin';
-import ManagerLogin from './manager/ManagerLogin';
+import MemberLogin from '../member/MemberLogin.jsx';
+import ManagerLogin from '../manager/ManagerLogin.jsx';
 import logo from '/src/assets/logo1.png'; // 로고 이미지
 import '/src/styles/Login.css';
 

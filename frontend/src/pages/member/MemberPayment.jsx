@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '/src/styles/pages/member/MemberPayment.css';
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {getNo} from "../../utils/auth.js";
+import instance from "../../utils/axiosConfig.js";
 
 const MemberPayment = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { office } = location.state || {};
     const [dateError, setDateError] = useState('');
@@ -79,11 +81,7 @@ const MemberPayment = () => {
                 no: no
             };
 
-            axios.post("http://localhost:8080/member/payment", paymentSuccess, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                    'Content-Type': 'application/json'
-                }, withCredentials: true
+            instance.post("http://localhost:8080/member/reservation/insert", paymentSuccess, {withCredentials: true
             })
                 .then(response => {
                     alert("결제가 완료되었습니다.");
@@ -96,10 +94,14 @@ const MemberPayment = () => {
         }
     };
 
+    const logoClick = () => {
+        navigate("/");
+    }
+
     return (
         <div className="MemberPayment">
             <div className="MemberPayment__header">
-                <img src="/src/assets/logo.png" alt="로고" className="MemberPayment__logo" />
+                <img src="/src/assets/logo1.png" alt="로고" className="MemberPayment__logo" onClick={logoClick} />
                 <h1 className="MemberPayment__title">결제 페이지</h1>
                 <p className="MemberPayment__description">
                     임대 시작 날짜와 종료 날짜, 인원을 선택하고 결제 방법을 선택해주세요. <br />아래에서 총 결제 금액을 확인할 수 있습니다.

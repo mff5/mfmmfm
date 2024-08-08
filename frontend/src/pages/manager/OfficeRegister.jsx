@@ -81,12 +81,10 @@ const OfficeRegister = () => {
         formData.append('subImg1', office.subImg1);
         formData.append('subImg2', office.subImg2);
 
-        instance.post('http://localhost:8080/office/register', formData)
+        instance.post('http://localhost:8080/manager/office/register', formData)
             .then(response => {
-                console.log('Form submitted successfully', response.data);
                 alert("오피스 등록 성공");
 
-                // 폼 초기화
                 setOffice(initialState);
                 setPreviewImages({
                     titleImg: '',
@@ -97,7 +95,7 @@ const OfficeRegister = () => {
                 navigate("/manager/managerPage/register");
             })
             .catch(error => {
-                console.error('Error submitting form', error);
+                alert("오류 발생");
             });
     };
 

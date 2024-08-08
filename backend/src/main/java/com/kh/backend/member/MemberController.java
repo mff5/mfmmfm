@@ -90,4 +90,14 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteMember(@PathVariable String id, @RequestBody Map<String, String> data) {
+        String pw = data.get("pw");
+        boolean result = memberService.deleteMember(id, pw);
+        if (result) {
+            return ResponseEntity.ok(null);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

@@ -40,4 +40,7 @@ select * from member where no = #{no}
     <update id="updatePw">
         update member set pw =#{pw} where no = #{no}
     </update>
+    <delete id="deleteMemberById">
+        delete from MEMBER where id = #{id}
+    </delete>
 </mapper>

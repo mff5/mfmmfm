@@ -4,7 +4,7 @@ import ManagerLogin from './pages/manager/ManagerLogin';
 import ManagerMain from './pages/manager/ManagerMain';
 import MemberDelete from './pages/member/MemberDelete';
 import MemberRegister from './pages/member/MemberRegister';
-import MemberMain from './pages/member/MemberMain';
+import Main from './pages/common/Main.jsx';
 import MemberSearch from './pages/member/MemberSearch';
 import MemberUpdate from './pages/member/MemberUpdate';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -15,21 +15,20 @@ import ManagerOffice from './pages/manager/ManagerOffice';
 import MemberFindId from "./pages/member/MemberFindId.jsx";
 import MemberResetPw from "./pages/member/MemberResetPw.jsx";
 import MemberFindIdResult from "./pages/member/MemberFindIdResult.jsx";
-import MemberOffice from "./pages/member/MemberOffice.jsx";
+import Office from "./pages/common/Office.jsx";
 import MemberPayment from "./pages/member/MemberPayment.jsx";
 import MemberPage from "./pages/member/MemberPage.jsx";
 import ManagerTest from "./pages/manager/ManagerTest.jsx";
 import ManagerPage from "./pages/manager/ManagerPage.jsx";
-import OfficeEdit from "./pages/manager/OfficeEdit.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./pages/common/Login.jsx";
+import MemberReview from "./pages/member/MemberReview.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* 공개 라우트 */}
-        <Route path="/" element={<MemberMain />} />
-        <Route path="/:category" element={<MemberMain />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/:category" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/member/register" element={<MemberRegister />} />
@@ -37,14 +36,12 @@ function App() {
         <Route path="/member/findId" element={<MemberFindId/>}/>
         <Route path="/member/findIdResult" element={<MemberFindIdResult/>}/>
         <Route path="/member/resetPw" element={<MemberResetPw/>}/>
-        <Route path="/member/office/:no" element={<MemberOffice/>}/>
-        <Route path="/member/book" element={<MemberPayment/>}/>
+        <Route path="/office/:no" element={<Office/>}/>
+        <Route path="/member/payment" element={<MemberPayment/>}/>
         <Route path="/member/memberPage" element={<MemberPage/>}/>
-
-        <Route path="/manager/officeEdit/:no" element={<OfficeEdit />}/>
         <Route path="/managerTest" element={<ManagerTest/>}/>
-
         <Route path="/manager/managerPage/*" element={<ManagerPage />} />
+        <Route path="/member/review/:officeNo" element={<MemberReview/>}/>
 
 
         {/* 멤버 보호 라우트 */}

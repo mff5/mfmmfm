@@ -12,4 +12,10 @@
     <select id="getReviews" resultMap="reviewResultMap">
         select * from REVIEW where OFFICE_NO = #{officeNo}
     </select>
+    <insert id="insertReview">
+        insert into REVIEW(member_no, office_no, rating, content) VALUES (#{memberNo}, #{officeNo}, #{rating}, #{content})
+    </insert>
+    <select id="getReviewsByMemberNo" resultMap="reviewResultMap">
+        select * from REVIEW where MEMBER_NO = #{memberNo}
+    </select>
 </mapper>

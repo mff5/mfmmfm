@@ -9,6 +9,7 @@ const OFFICE_CATEGORIES = [
     "충북", "전북", "전남", "경북", "경남", "제주",
 ];
 
+
 const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);

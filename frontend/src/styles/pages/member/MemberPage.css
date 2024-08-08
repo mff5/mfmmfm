@@ -1,4 +1,5 @@
 .member-my-page-wrapper {
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     padding: 60px 0;
@@ -75,4 +76,5 @@
     flex-grow: 1;
     padding: 30px;
     background-color: #f7f7f7;
+    position: relative;
 }

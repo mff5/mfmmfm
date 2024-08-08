@@ -16,9 +16,9 @@ const ManagerPage = () => {
             <main className="main-content">
                 <Routes>
                     <Route path="register" element={<OfficeRegister />} />
-                    <Route path="edit" element={<OfficeEdit />} />
+                    <Route path="office/edit/:officeNo" element={<OfficeEdit />} />
                     <Route path="info" element={<ManagerInfo />} />
-                    <Route path="reviews" element={<OfficeReview />} />
+                    <Route path="office/review/:officeNo" element={<OfficeReview />} />
                     <Route path="officeList" element={<OfficeList/>}/>
                     <Route path="*" element={<OfficeList/>}/>
                 </Routes>

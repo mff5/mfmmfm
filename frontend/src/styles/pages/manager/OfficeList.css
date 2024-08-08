@@ -1,4 +1,4 @@
-.office-list {
+.office-list-wrapper .office-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
@@ -7,7 +7,7 @@
     padding-bottom: 40px; /* 페이지네이션을 위한 여백 추가 */
 }
 
-.office-card {
+.office-list-wrapper .office-card {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -19,19 +19,19 @@
     height: 100%;
 }
 
-.office-card:hover {
+.office-list-wrapper .office-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-3px); /* 살짝 위로 올라가는 효과 */
 }
 
-.image-placeholder {
+.office-list-wrapper .image-placeholder {
     background-color: #f0f0f0;
     width: 100%;
     padding-top: 100%; /* 1:1 비율 유지 */
     position: relative;
 }
 
-.image-placeholder img {
+.office-list-wrapper .image-placeholder img {
     position: absolute;
     top: 0;
     left: 0;
@@ -40,75 +40,79 @@
     object-fit: cover;
 }
 
-.office-details {
+.office-list-wrapper .office-details {
     padding: 16px;
     text-align: center;
     flex-grow: 1;
 }
 
-.office-details h3 {
+.office-list-wrapper .office-details h3 {
     margin: 0;
     font-size: 18px;
     font-weight: bold;
     color: #333;
 }
 
-.office-details p {
+.office-list-wrapper .office-details p {
     margin: 4px 0;
     color: #777;
 }
 
 /* 버튼 그룹 스타일 */
-.button-group {
+.office-list-wrapper .button-group {
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
 }
 
-.button-group button {
-    width: 30%;
+.office-list-wrapper .button-group button {
+    flex: 1;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 4px;
     cursor: pointer;
     border: none;
     transition: background-color 0.3s;
     color: #fff; /* 모든 버튼의 텍스트 색상을 흰색으로 통일 */
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.edit-button {
+.office-list-wrapper .button-group button:first-child {
+    margin-left: 0;
+}
+
+.office-list-wrapper .button-group button:last-child {
+    margin-right: 0;
+}
+
+.office-list-wrapper .edit-button {
     background-color: #4CAF50; /* 차분한 녹색 */
 }
 
-.edit-button:hover {
+.office-list-wrapper .edit-button:hover {
     background-color: #45A049;
 }
 
-.delete-button {
+.office-list-wrapper .delete-button {
     background-color: #F44336; /* 부드러운 빨간색 */
 }
 
-.delete-button:hover {
+.office-list-wrapper .delete-button:hover {
     background-color: #E53935;
 }
 
-.review-button {
-    background-color: #2196F3; /* 차분한 파란색 */
-}
-
-.review-button:hover {
-    background-color: #1976D2;
-}
-
 /* 페이지네이션 스타일 */
-.pagination {
+.office-list-wrapper .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
 
-.pagination button {
+.office-list-wrapper .pagination button {
     background-color: #343a40;
     color: white;
     border: none;
@@ -120,11 +124,11 @@
     margin: 0 5px;
 }
 
-.pagination button:hover {
+.office-list-wrapper .pagination button:hover {
     background-color: #495057;
 }
 
-.pagination span {
+.office-list-wrapper .pagination span {
     font-size: 18px;
     margin: 0 10px;
 }

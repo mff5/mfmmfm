@@ -1,4 +1,4 @@
-.member-payments-list {
+.member-reservations-list {
     margin-top: 30px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -6,7 +6,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.member-payments-item {
+.member-reservations-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,35 +18,39 @@
     transition: background-color 0.3s;
 }
 
-.member-payments-item:hover {
+.member-reservations-item:hover {
     background-color: #f1f1f1;
 }
 
-.member-payments-details {
+.member-reservations-details {
     display: flex;
     flex-direction: column;
 }
 
-.member-payments-details p {
+.member-reservations-details p {
     margin: 5px 0;
 }
 
-.member-payments-title {
+.member-reservations-title {
     font-weight: bold;
     font-size: 1.2em;
     color: #333;
 }
 
-.cancel-button {
+.cancel-button,
+.review-button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    background-color: #dc3545; /* 빨간색 배경 */
-    color: white;
     transition: background-color 0.3s, transform 0.3s;
     margin-top: 10px;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #dc3545; /* 빨간색 배경 */
 }
 
 .cancel-button:hover {
@@ -55,18 +59,20 @@
 }
 
 .review-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
     background-color: #28a745; /* 초록색 배경 */
-    color: white;
-    transition: background-color 0.3s, transform 0.3s;
-    margin-top: 10px;
 }
 
 .review-button:hover {
     background-color: #218838; /* 초록색 hover 효과 */
     transform: translateY(-2px);
 }
+
+/* 비활성화된 버튼 스타일 */
+.cancel-button:disabled,
+.review-button:disabled {
+    background-color: #e0e0e0; /* 비활성화된 버튼의 배경색 */
+    color: #a0a0a0; /* 비활성화된 버튼의 글자색 */
+    cursor: not-allowed; /* 커서 모양 변경 */
+    border: 1px solid #c0c0c0; /* 비활성화된 버튼의 테두리 색상 */
+}
+

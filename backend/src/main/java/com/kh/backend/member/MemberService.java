@@ -68,4 +68,14 @@ public class MemberService {
     public boolean updatePw(int no,String pw)  {
         return memberMapper.updatePw(no, passwordEncoder.encode(pw)) > 0;
     }
+    public boolean deleteMember(String id, String pw) {
+        Member member = memberMapper.findById(id);
+
+        if (passwordEncoder.matches(pw, member.getPw())) {
+            return memberMapper.deleteMemberById(id) > 0;
+        } else {
+            System.out.println("Password does not match.");
+            return false;
+        }
+    }
 }

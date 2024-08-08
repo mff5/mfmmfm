@@ -9,7 +9,7 @@ const OfficeItem = (office) => {
     const navigate = useNavigate();
 
     const officeClick = async () => {
-        navigate(`/member/office/${office.no}`);
+        navigate(`/office/${office.no}`);
     }
     return (
         <div className="office-item" onClick={officeClick}>

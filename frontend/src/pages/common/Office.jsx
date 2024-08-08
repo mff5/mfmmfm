@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "/src/styles/pages/member/MemberOffice.css";
+import "/src/styles/pages/common/Office.css";
 import MemberFooter from "../../components/member/MemberFooter.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import KakaoMap from "../../utils/KakaoMap.jsx";
 import MemberHeader from "../../components/member/MemberHeader.jsx";
 
-const MemberOffice = () => {
+const Office = () => {
     const navigate = useNavigate();
     const { no } = useParams();
     const [office, setOffice] = useState(null);
@@ -31,7 +31,7 @@ const MemberOffice = () => {
     if (!office) return <p>로딩 중...</p>;
 
     const bookClick = () => {
-        navigate("/member/book", { state: { office } });
+        navigate("/member/payment", { state: { office } });
     };
 
     return (
@@ -133,4 +133,4 @@ const MemberOffice = () => {
     );
 };
 
-export default MemberOffice;
+export default Office;

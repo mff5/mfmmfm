@@ -27,7 +27,6 @@ public class GeocodingService {
         // API 응답 받기
         String response = restTemplate.getForObject(uri, String.class);
 
-        System.out.println("API Response zip: " + response);
 
         // JSON 파싱
         ObjectMapper mapper = new ObjectMapper();

@@ -1,9 +1,9 @@
-package com.kh.backend.payment;
+package com.kh.backend.reservation;
 
 import lombok.Data;
 
 @Data
-public class PaymentRequest {
+public class ReservationRequest {
     private int no;
     private int officeNo;
     private String startDate;

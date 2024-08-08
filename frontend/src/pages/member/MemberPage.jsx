@@ -5,15 +5,16 @@ import MemberHeader from "../../components/member/MemberHeader";
 import MemberFooter from "../../components/member/MemberFooter";
 import instance from "../../utils/axiosConfig";
 import '/src/styles/pages/member/MemberPage.css';
-import {pwCheck, pwCheckCheck} from "../../utils/MemberRegister.js";
-import MemberPayments from "../../components/member/MemberPayments.jsx";
+import { pwCheck, pwCheckCheck } from "../../utils/MemberRegister.js";
+import MemberReservations from "../../components/member/MemberReservations.jsx";
 import MemberInfo from "../../components/member/MemberInfo.jsx";
+import MemberDelete from "../../components/member/MemberDelete.jsx";
 
 const MemberMyPage = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('info');
     const [member, setMember] = useState({});
-    const [payments, setPayments] = useState([]);
+    const [reservations, setReservations] = useState([]);
     const [newPw, setNewPw] = useState('');
     const [confirmNewPw, setConfirmNewPw] = useState('');
     const [newNickname, setNewNickname] = useState('');
@@ -30,11 +31,9 @@ const MemberMyPage = () => {
                     return;
                 }
 
-                const response = await instance.get(`http://localhost:8080/auth/member/${getNo()}`, {
-                    headers: { Authorization: `Bearer ${accessToken}` }
-                });
+                const response = await instance.get(`http://localhost:8080/auth/member/${getNo()}`);
                 setMember(response.data.member);
-                setPayments(response.data.payments);
+                setReservations(response.data.reservations);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     navigate('/login');
@@ -43,7 +42,7 @@ const MemberMyPage = () => {
         };
 
         fetchMemberInfo();
-    }, [activeTab, navigate]);
+    }, [navigate]);
 
     const handlePwChange = () => {
         if (!pwRef.current || !confirmPwRef.current) {
@@ -102,6 +101,9 @@ const MemberMyPage = () => {
                             <li className={activeTab === 'reservations' ? 'active' : ''} onClick={() => setActiveTab('reservations')}>
                                 내예약
                             </li>
+                            <li className={activeTab === 'delete' ? 'active' : ''} onClick={() => setActiveTab('delete')}>
+                                회원탈퇴
+                            </li>
                         </ul>
                     </div>
                     <div className="member-my-page-content-section">
@@ -122,8 +124,11 @@ const MemberMyPage = () => {
                                 confirmPwRef={confirmPwRef}
                             />
                         )}
-                        {activeTab === 'payments' && (
-                            <MemberPayments payments={payments} />
+                        {activeTab === 'reservations' && (
+                            <MemberReservations reservations={reservations} />
+                        )}
+                        {activeTab === 'delete' && (
+                            <MemberDelete id={member.id} />
                         )}
                     </div>
                 </div>
