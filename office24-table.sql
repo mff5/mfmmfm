@@ -17,12 +17,13 @@ create table member (
                         id       varchar2(30) check ( length(id) >= 6 ) not null unique,    -- 아이디 (6자 이상 12자 이하 한글x)
                         pw       varchar2(100) not null,           							-- 비밀번호 (8자 이상 16자 이하 한글x, 영문 대문자, 소문자, 숫자, 특수문자 각 1개씩 포함)
                         name     nvarchar2(30) check ( length(name) >= 2 ) not null,         -- 이름 (2자 이상 12자 이하 영어x)
-                        phone    char(11) not null,                                         -- 번호 (번호, 이메일 둘 중 하나만 필수)
+                        phone    char(11) null,                                         -- 번호 (번호, 이메일 둘 중 하나만 필수)
                         email    varchar2(32) default null,                                 -- 이메일 (번호, 이메일 둘 중 하나만 필수)
                         birth    date not null,                                             -- 생일
                         gender   varchar2(1) default null,                                  -- 성별 ('M', 'W' // 선택)
                         reg_date date default systimestamp                                  -- 가입일
 );
+ALTER TABLE member MODIFY phone NULL;
 
 -----------------------------------------------------------------------------------------
 
@@ -88,6 +89,7 @@ create table notice (
 );
 
 -----------------------------------------------------------------------------------------
+truncate table review;
 drop table review;
 create table review (
                         no        number default review_seq.nextval primary key,            -- 구분 코드
@@ -117,10 +119,11 @@ create table wish (
 
 -----------------------------------------------------------------------------------------
 
-create sequence payment_seq start with 1 increment by 1;
-drop table payment;
-create table payment (
-                         no         number default payment_seq.nextval primary key,          -- 구분 코드
+
+
+create sequence reservation_seq start with 1 increment by 1;
+create table reservation (
+                         no         number default reservation_seq.nextval primary key,          -- 구분 코드
                          office_no  number,					                        -- 오피스 번호
                          member_no  number,                  -- 멤버
                          guests number not null,			                        -- 예약자
