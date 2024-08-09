@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '/src/styles/pages/manager/OfficeRegister.css';
+import '/src/styles/components/manager/OfficeRegister.css';
 import instance from "../../utils/axiosConfig.js";
 import { useNavigate } from "react-router-dom";
 import {getNo} from "../../utils/auth.js";
@@ -146,7 +146,7 @@ const OfficeRegister = () => {
                                type="text"
                                placeholder="오피스 주소 입력"
                                value={office.address || ''}
-                               onChange={(e) => setOffice({...office, address: e.target.value})} required readOnly
+                               onChange={(e) => setOffice({...office, address: e.target.value})} required readOnly={true}
                         />
                         <button type="button" onClick={openPostcodePopup}>주소 찾기</button>
                     </div>
@@ -154,7 +154,7 @@ const OfficeRegister = () => {
                         <label htmlFor="capacity">최대 인원</label>
                         <input id="capacity"
                                type="number"
-                               placeholder="수용 가능 인원 입력"
+                               placeholder="최대 인원 입력"
                                value={office.capacity || ''}
                                onChange={(e) => setOffice({...office, capacity: e.target.value})} required
                         />

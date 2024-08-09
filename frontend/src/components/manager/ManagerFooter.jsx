@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo2 from '/src/assets/logo2.png';
-import '/src/styles/pages/manager/ManagerFooter.css';
+import '/src/styles/components/manager/ManagerFooter.css';
 
 const ManagerFooter = () => {
     const navigate = useNavigate();

@@ -43,4 +43,39 @@ select * from member where no = #{no}
     <delete id="deleteMemberById">
         delete from MEMBER where id = #{id}
     </delete>
+    <select id="getMemberCount" resultType="int">
+        select count(*) from MEMBER
+    </select>
+    <select id="manCount" resultType="int">
+        select count(*) from MEMBER where GENDER = 'M'
+    </select>
+    <select id="getMonthMemberCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM member
+        WHERE reg_date >= TRUNC(ADD_MONTHS(SYSDATE, -1))
+          AND reg_date < TRUNC(SYSDATE)
+        ]]>
+    </select>
+    <select id="getAgeGroupDistribution" resultType="java.util.Map">
+        SELECT
+            CASE
+                WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 10 AND 19 THEN '10대'
+                WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 20 AND 29 THEN '20대'
+                WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 30 AND 39 THEN '30대'
+                WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 40 AND 49 THEN '40대'
+                WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 50 AND 59 THEN '50대'
+                ELSE '60대 이상'
+                END AS ageGroup,
+            COUNT(*) AS memberCount
+        FROM member
+        GROUP BY CASE
+                     WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 10 AND 19 THEN '10대'
+                     WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 20 AND 29 THEN '20대'
+                     WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 30 AND 39 THEN '30대'
+                     WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 40 AND 49 THEN '40대'
+                     WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, birth) / 12) BETWEEN 50 AND 59 THEN '50대'
+                     ELSE '60대 이상'
+                     END
+    </select>
 </mapper>

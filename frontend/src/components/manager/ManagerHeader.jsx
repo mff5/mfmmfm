@@ -1,22 +1,27 @@
-import '../../styles/components/manager/ManagerHeader.css';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LuLogOut } from "react-icons/lu";
+import Logo1 from '/src/assets/logo1.png';
+import '/src/styles/components/manager/ManagerHeader.css';
 
 const ManagerHeader = () => {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        navigate('/manager', { replace: true });
-    };
     return (
-        <div className='managerHeader_container'>
-            <div className="header">
-                <button className='logout_button' type="button" onClick={handleLogout}><LuLogOut />&nbsp;Logout</button>
+        <header className="manager-header">
+            <div className="header-content">
+                <img src={Logo1} alt="Belliz Logo" className="header-logo" onClick={() => navigate('/')} />
+                <h1>Belliz 매니저</h1>
+                <nav className="header-nav">
+                    <ul>
+                        <li onClick={() => navigate('/manager/managerPage/officeList')}>나의 오피스</li>
+                        <li onClick={() => navigate('/manager/managerPage/register')}>오피스 등록</li>
+                        <li onClick={() => navigate('/manager/managerPage/info')}>매니저 정보</li>
+                        <li onClick={() => navigate('/manager/managerPage/office/reviews')}>리뷰 관리</li>
+                    </ul>
+                </nav>
             </div>
-        </div>
+        </header>
     );
-}
+};
 
 export default ManagerHeader;

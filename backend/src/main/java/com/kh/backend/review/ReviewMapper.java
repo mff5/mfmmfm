@@ -6,7 +6,9 @@ import java.util.List;
 
 @Mapper
 public interface ReviewMapper {
-    List<Review> getReviews(int officeNo);
+    List<Review> getReviewsByOfficeNo(int officeNo);
     int insertReview(Review review);
     List<Review> getReviewsByMemberNo(int memberNo);
+    Integer getRatingSumByOfficeNo(int officeNo);
+    Integer getCountByOfficeNo(int officeNo);
 }

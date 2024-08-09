@@ -1,0 +1,52 @@
+.admin-header {
+    background-color: #1c1f24; /* 어두운 배경색 */
+    color: #ffffff;
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.admin-header .header-logo {
+    height: 50px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.admin-header .header-content h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.2; /* 로고와 제목이 동일한 높이에서 정렬되도록 함 */
+}
+
+.admin-header .header-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-header .header-nav ul li {
+    cursor: pointer;
+    color: #ced4da; /* 밝은 그레이 색상 */
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.admin-header .header-nav ul li:hover {
+    color: #ffdd57; /* 호버 시 밝은 노란색으로 강조 */
+}

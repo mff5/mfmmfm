@@ -93,6 +93,7 @@ public class AuthController {
     @PostMapping("/admin/login")
     public ResponseEntity<?> loginAdmin(@RequestBody LoginRequest loginRequest) {
         Admin admin = authService.authenticateAdmin(loginRequest.getId(), loginRequest.getPw());
+        System.out.println("admin="+admin);
         if (admin != null) {
             String accessToken = jwtUtil.generateAccessToken(admin.getId(), "ROLE_ADMIN", admin.getNo());
             String refreshToken = jwtUtil.generateRefreshToken(admin.getId(), "ROLE_ADMIN", admin.getNo());
@@ -199,4 +200,17 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
     }
+    /*
+    @GetMapping("/admin")
+    public ResponseEntity<?> getAdmin() {
+        boolean result = memberService.createAdmin();
+        if (result) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+     */
+
 }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import '/src/styles/pages/manager/OfficeEdit.css';
+import '/src/styles/components/manager/OfficeEdit.css';
 import ManagerFooter from "./ManagerFooter.jsx";
 import ManagerHeader from "./ManagerHeader.jsx";
 import instance from "../../utils/axiosConfig.js";
@@ -8,7 +8,7 @@ import {getNo} from "../../utils/auth.js";
 
 const OfficeEdit = () => {
     const navigate = useNavigate();
-    const { officeNo } = useParams();
+    const {officeNo} = useParams();
     const [office, setOffice] = useState({
         no: '',
         manager_no: '',
@@ -66,7 +66,7 @@ const OfficeEdit = () => {
 
     const openPostcodePopup = () => {
         new window.daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 setOffice(prevState => ({
                     ...prevState,
                     address: data.address,
@@ -80,7 +80,7 @@ const OfficeEdit = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("no",office.no);
+        formData.append("no", office.no);
         formData.append('title', office.title);
         formData.append('managerNo', getNo());
         formData.append('address', office.address);
@@ -114,18 +114,18 @@ const OfficeEdit = () => {
                     <div className="image-previews">
                         {previewImages.titleImg && (
                             <div className="image-preview-main">
-                                <img src={previewImages.titleImg} alt="메인 이미지 미리보기" />
+                                <img src={previewImages.titleImg} alt="메인 이미지 미리보기"/>
                             </div>
                         )}
                         <div className="image-preview-sub-container">
                             {previewImages.subImg1 && (
                                 <div className="image-preview-sub">
-                                    <img src={previewImages.subImg1} alt="서브 이미지 1 미리보기" />
+                                    <img src={previewImages.subImg1} alt="서브 이미지 1 미리보기"/>
                                 </div>
                             )}
                             {previewImages.subImg2 && (
                                 <div className="image-preview-sub">
-                                    <img src={previewImages.subImg2} alt="서브 이미지 2 미리보기" />
+                                    <img src={previewImages.subImg2} alt="서브 이미지 2 미리보기"/>
                                 </div>
                             )}
                         </div>
@@ -162,7 +162,7 @@ const OfficeEdit = () => {
                             <label htmlFor="capacity">최대 인원</label>
                             <input id="capacity"
                                    type="text"
-                                   placeholder="수용 가능 인원 입력"
+                                   placeholder="최대 인원 입력"
                                    value={office.capacity || ''}
                                    onChange={(e) => setOffice({...office, capacity: e.target.value})}
                             />

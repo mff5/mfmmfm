@@ -10,7 +10,7 @@ import MemberReservations from "../../components/member/MemberReservations.jsx";
 import MemberInfo from "../../components/member/MemberInfo.jsx";
 import MemberDelete from "../../components/member/MemberDelete.jsx";
 
-const MemberMyPage = () => {
+const MemberPage = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('info');
     const [member, setMember] = useState({});
@@ -82,19 +82,19 @@ const MemberMyPage = () => {
     return (
         <div>
             <MemberHeader />
-            <div className="member-my-page-wrapper">
-                <div className="member-my-page-container">
-                    <div className="member-my-page-sidebar">
-                        <div className="member-my-page-logo-container">
-                            <img src="/src/assets/logo3.jpg" alt="Logo" className="member-my-page-logo" />
+            <div className="member-page-wrapper">
+                <div className="member-page-container">
+                    <div className="member-page-sidebar">
+                        <div className="member-page-logo-container">
+                            <img src="/src/assets/logo3.jpg" alt="Logo" className="member-page-logo" />
                         </div>
-                        <div className="member-my-page-profile-section">
-                            <div className="member-my-page-profile-image">
+                        <div className="member-page-profile-section">
+                            <div className="member-page-profile-image">
                                 <img src="/src/assets/logo1.png" alt="Logo" />
                             </div>
-                            <p className="member-my-page-profile-name">{member.id || "사용자 이름"}</p>
+                            <p className="member-page-profile-name">{member.id || "사용자 이름"}</p>
                         </div>
-                        <ul className="member-my-page-menu">
+                        <ul className="member-page-menu">
                             <li className={activeTab === 'info' ? 'active' : ''} onClick={() => setActiveTab('info')}>
                                 내정보
                             </li>
@@ -106,7 +106,7 @@ const MemberMyPage = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="member-my-page-content-section">
+                    <div className="member-page-content-section">
                         {activeTab === 'info' && (
                             <MemberInfo
                                 member={member}
@@ -138,4 +138,4 @@ const MemberMyPage = () => {
     );
 };
 
-export default MemberMyPage;
+export default MemberPage;

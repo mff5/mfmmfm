@@ -206,8 +206,8 @@ const ManagerMain = () => {
                   {offices.map((office) => (
                     <li key={office.no} className='statusli'>
                       {office.title}
-                      <span className={office.availability === 1 ? 'approved' : 'pending'}>
-                        {office.availability === 1 ? '승인됨' : '대기 중'}
+                      <span className={office.availability === '1' ? 'approved' : 'pending'}>
+                        {office.availability === '1' ? '승인됨' : '대기 중'}
                       </span>
                     </li>
                   ))}

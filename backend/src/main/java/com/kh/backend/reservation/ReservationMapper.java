@@ -3,6 +3,7 @@ package com.kh.backend.reservation;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ReservationMapper {
@@ -14,4 +15,5 @@ public interface ReservationMapper {
     List<Reservation> getReservationsByMemberNo (int memberNo);
     int insertReservation(Reservation reservation);
     int deleteReservation(int no);
+    Map<Integer, Integer> getPopularOffice();
 }

@@ -30,7 +30,7 @@ const Office = () => {
 
     if (!office) return <p>로딩 중...</p>;
 
-    const bookClick = () => {
+    const paymentClick = () => {
         navigate("/member/payment", { state: { office } });
     };
 
@@ -63,24 +63,18 @@ const Office = () => {
                             {office.price && (
                                 <div>
                                     <h3>가격</h3>
-                                    <p>₩{Number(office.price).toLocaleString('ko-KR')} <span className="per">/ 하루</span></p>
+                                    <p>₩{Number(office.price).toLocaleString('ko-KR')} / 1일</p>
                                 </div>
                             )}
                             {office.capacity && (
                                 <div>
-                                    <h3>수용 인원</h3>
+                                    <h3>최대 인원</h3>
                                     <p>{office.capacity} 명</p>
-                                </div>
-                            )}
-                            {office.amenities && office.amenities.length > 0 && (
-                                <div>
-                                    <h3>편의 시설</h3>
-                                    <p>{office.amenities.join(', ')}</p>
                                 </div>
                             )}
                         </div>
                     </div>
-                    <button className="member-office-reserve-button" onClick={bookClick}>예약하기</button>
+                    <button className="member-office-reserve-button" onClick={paymentClick}>예약하기</button>
                     {manager && (manager.name || manager.phone || manager.email) && (
                         <div className="member-office-contact">
                             <h2>연락처 정보</h2>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReservationService {
@@ -33,5 +34,8 @@ public class ReservationService {
     }
     public boolean deleteReservation(int no) {
         return reservationMapper.deleteReservation(no) > 0;
+    }
+    public Map<Integer, Integer> getPopularOffice() {
+        return reservationMapper.getPopularOffice();
     }
 }

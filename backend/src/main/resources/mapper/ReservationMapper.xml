@@ -53,4 +53,11 @@
     <delete id="deleteReservation">
         delete from RESERVATION where no = #{no}
     </delete>
+    <select id="getPopularOffice" resultType="map">
+        SELECT office_no, COUNT(office_no) AS reservation_count
+        FROM reservation
+        GROUP BY office_no
+        ORDER BY reservation_count DESC
+            FETCH FIRST 1 ROWS ONLY
+    </select>
 </mapper>

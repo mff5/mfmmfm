@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import instance from "../../utils/axiosConfig.js";
 import { getNo } from "../../utils/auth.js";
-import '/src/styles/pages/manager/OfficeList.css';
+import '/src/styles/components/manager/OfficeList.css';
 
 const OfficeList = () => {
     const navigate = useNavigate();
@@ -66,9 +66,9 @@ const OfficeList = () => {
                         <div className="office-details">
                             <h3>{office.title}</h3>
                             <p>{office.address}</p>
-                            <p>Price: {office.price}/1일</p>
+                            <p>Price: {office.price} / 1일</p>
                             <p>Capacity: {office.capacity}</p>
-                            <p>{office.availability === 1 ? 'Available' : 'Unavailable'}</p>
+                            <p>{office.availability === '1' ? 'Available' : 'Unavailable'}</p>
                         </div>
                         <div className="button-group">
                             <button className="edit-button" onClick={() => navigate(`/manager/managerPage/office/edit/${office.no}`)}>수정하기</button>

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -38,7 +37,7 @@ public class MemberController {
         this.managerService = managerService;
     }
 
-    @GetMapping("/idCheck")
+    @GetMapping("/member/idCheck")
     public ResponseEntity<String> idCheck(@RequestParam String id) {
         if (memberService.idCheck(id)) {
             return ResponseEntity.ok(null);
@@ -47,7 +46,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/checkId")
+    @GetMapping("/member/checkId")
     public ResponseEntity<?> checkId(@RequestParam String id) {
         if (!memberService.idCheck(id)) {
             return ResponseEntity.ok(null);
@@ -55,7 +54,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @PostMapping("/register")
+    @PostMapping("/member/register")
     public ResponseEntity<?> registerMember(@RequestBody Member member) {
         try {
             memberService.registerMember(member.getId(), member.getPw(),
@@ -67,7 +66,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @PostMapping("/resetPw")
+    @PostMapping("/member/resetPw")
     public ResponseEntity<?> resetPw(@RequestBody Map<String, String> map) {
         String pw = map.get("pw");
         String id = map.get("id");
@@ -79,7 +78,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @PatchMapping("/updatePw")
+    @PatchMapping("/member/updatePw")
     public ResponseEntity<?> updatePw(@RequestBody PwRequest pwRequest)    {
         int no = pwRequest.getNo();
         String pw = pwRequest.getPw();
@@ -90,7 +89,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/member/delete/{id}")
     public ResponseEntity<?> deleteMember(@PathVariable String id, @RequestBody Map<String, String> data) {
         String pw = data.get("pw");
         boolean result = memberService.deleteMember(id, pw);
@@ -98,6 +97,31 @@ public class MemberController {
             return ResponseEntity.ok(null);
         } else {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+    @GetMapping("/admin/memberStats")
+    public ResponseEntity<?> memberStats() {
+        try {
+            int totalMembers = memberService.getMemberCount();
+            System.out.println("totalMember:"+totalMembers);
+            int newMembers = memberService.getMonthMemberCount();
+            System.out.println("newMembers:"+newMembers);
+            int manCount = memberService.manCount();
+            System.out.println("manCount:"+manCount);
+            int womanCount = totalMembers - manCount;
+            System.out.println("womanCount:"+womanCount);
+            List<Map<String, Object>> ageGroupDistribution = memberService.getAgeGroupDistribution();
+            System.out.println("ageGroupDistribution:"+ageGroupDistribution);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("totalMembers", totalMembers);
+            response.put("newMembers", newMembers);
+            response.put("manCount", manCount);
+            response.put("womanCount", womanCount);
+            response.put("ageGroupDistribution", ageGroupDistribution);
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

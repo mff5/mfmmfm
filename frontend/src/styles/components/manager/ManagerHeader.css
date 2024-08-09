@@ -1,29 +1,51 @@
-.managerHeader_container {
-    width: 80%;
-    height: 70px;
+.manager-header {
+    background-color: #343a40; /* 어두운 배경색 (푸터와 일치) */
+    color: #ffffff;
+    padding: 20px 0; /* 헤더의 상하 패딩을 늘려 높이 증가 */
     position: fixed;
     top: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #F5f5f5;
-    display: flex;
-}
-
-.managerHeader_container .header {
     width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.managerHeader_container .logout_button {
-    background: none;
-    border: none;
-    color: #2c3e50;
-    cursor: pointer;
-    font-size: 18px;
-    margin-right: 10px;
+.header-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    max-width: 1200px; /* 너비 조정 */
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.header-logo {
+    height: 50px; /* 로고 크기 증가 */
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.header-content h1 {
+    font-size: 24px; /* 제목 크기 증가 */
+    margin: 0;
+    font-weight: 700;
+}
+
+.header-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* 메뉴 간 간격 증가 */
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav ul li {
+    cursor: pointer;
+    color: #adb5bd; /* 푸터와 유사한 텍스트 색상 */
+    font-weight: 500;
+    font-size: 18px; /* 메뉴 글자 크기 증가 */
+    transition: color 0.3s;
+}
+
+.header-nav ul li:hover {
+    color: #ffdd57; /* 호버 시 밝은 색상 (푸터와 일치) */
 }

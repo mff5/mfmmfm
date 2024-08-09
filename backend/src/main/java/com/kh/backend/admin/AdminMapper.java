@@ -4,7 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AdminMapper {
-    void insertAdmin(Admin admin);
-
     Admin findById(String id);
+    int insertAdmin(String id, String pw);
 }

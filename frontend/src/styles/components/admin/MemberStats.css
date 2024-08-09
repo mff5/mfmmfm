@@ -1,0 +1,91 @@
+.member-stats-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    min-height: calc(100vh - 100px);
+}
+
+.member-stats-container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 40px 20px;
+}
+
+.member-stats-container > h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.member-stats-container .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+/* 기존 .stat-item 호버 효과 */
+.member-stats-container .stat-item,
+.member-stats-container .doughnut-chart-container,
+.member-stats-container .bar-chart-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-stats-container .stat-item:hover,
+.member-stats-container .doughnut-chart-container:hover,
+.member-stats-container .bar-chart-container:hover {
+    transform: translateY(-10px); /* 위로 10px 이동 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 그림자 강도를 증가 */
+}
+
+.member-stats-container .stat-item > h3,
+.member-stats-container .doughnut-chart-container > h3,
+.member-stats-container .bar-chart-container > h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.member-stats-container .stat-item > p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+.member-stats-container .doughnut-chart-container {
+    width: 650px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.member-stats-container .doughnut-chart-container .doughnut-chart {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.member-stats-container .bar-chart-container {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.member-stats-container .bar-chart-container .bar-chart {
+    width: 100%;
+    height: 80%;
+}

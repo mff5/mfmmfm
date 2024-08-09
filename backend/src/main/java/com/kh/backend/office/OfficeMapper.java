@@ -30,22 +30,23 @@ public interface OfficeMapper {
     List<Office> getOfficeStatusPaged(@Param("no") int no, @Param("offset") int offset, @Param("limit") int limit);
     int getOfficeStatusCount(@Param("no") int no);
 
-    // 오피스 목록 조회 (상태, 검색 포함)
-    List<Office> getOffices(@Param("no") int no, @Param("offset") int offset, @Param("limit") int limit,
-        @Param("availability") Integer availability, @Param("searchText") String searchText);
+
 
     // 오피스 총 개수 조회 (페이징)
-    int getOfficeCount(@Param("no") int no, @Param("availability") Integer availability, @Param("searchText") String searchText);
+    int getOfficeCountByManagerNo(@Param("no") int no, @Param("availability") String availability, @Param("searchText") String searchText);
 
     // 오피스 no로 오피스 정보 삭제
     void deleteOffice(@Param("no") int no);
+    List<Office> getOfficesByManagerNo(@Param("managerNo") int managerNo, @Param("offset") int offset, @Param("limit") int limit,
+                            @Param("availability") String availability, @Param("searchText") String searchText);
 
     Office getOffice(@Param("no") int no);
     int getManagerNo(int no);
 
     void insertOffice(Office office);
-    List<Office> getAllOffices(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability);
-    List<Office> getByCategory(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") int availability,
+    List<Office> getAllOffices(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") String availability);
+    List<Office> getByCategory(@Param("offset") int offset, @Param("limit") int limit, @Param("availability") String availability,
                                @Param("category") String category);
     int updateOffice(Office office);
+    int getOfficeCount();
 }

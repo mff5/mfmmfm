@@ -4,8 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.kh.backend.admin.Admin;
+import com.kh.backend.admin.AdminMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
@@ -21,9 +25,11 @@ import org.springframework.web.client.RestTemplate;
 public class MemberService {
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
-    public MemberService(MemberMapper memberMapper, PasswordEncoder passwordEncoder) {
+    private final AdminMapper adminMapper;
+    public MemberService(MemberMapper memberMapper, PasswordEncoder passwordEncoder, AdminMapper adminMapper) {
         this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
+        this.adminMapper = adminMapper;
     }
 
     public boolean idCheck(String id) {
@@ -77,5 +83,20 @@ public class MemberService {
             System.out.println("Password does not match.");
             return false;
         }
+    }
+    public boolean createAdmin() {
+        return adminMapper.insertAdmin("admin", passwordEncoder.encode("admin")) > 0;
+    }
+    public int getMemberCount() {
+        return memberMapper.getMemberCount();
+    }
+    public int getMonthMemberCount() {
+        return memberMapper.getMonthMemberCount();
+    }
+    public int manCount() {
+        return memberMapper.manCount();
+    }
+    public List<Map<String, Object>> getAgeGroupDistribution() {
+        return memberMapper.getAgeGroupDistribution();
     }
 }

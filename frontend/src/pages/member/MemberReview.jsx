@@ -72,9 +72,9 @@ const MemberReview = () => {
                         <div className="office-details">
                             <h2>{office.title}</h2>
                             <p>{office.address}</p>
-                            <p>₩{Number(office.price).toLocaleString('ko-KR')} 1박</p>
+                            <p>₩{Number(office.price).toLocaleString('ko-KR')} / 1일</p>
                             <p>최대 인원: {office.capacity} 명</p>
-                            <hr />
+                            <hr/>
                             <h3>매니저 정보</h3>
                             <p>Name: {manager.name}</p>
                             <p>Email: {manager.email}</p>

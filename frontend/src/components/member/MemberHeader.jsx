@@ -9,8 +9,7 @@ const OFFICE_CATEGORIES = [
     "충북", "전북", "전남", "경북", "경남", "제주",
 ];
 
-
-const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
+const MemberHeader = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [role, setRole] = useState(null);
@@ -28,7 +27,7 @@ const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
     }, []);
 
     const handleLogout = () => {
-        if(confirm("로그아웃하시겠습니까?"))  {
+        if (confirm("로그아웃하시겠습니까?")) {
             removeTokens();
             setIsLoggedIn(false);
             setRole(null);
@@ -37,8 +36,9 @@ const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
     };
 
     const logoClick = () => {
-        navigate("/")
+        navigate("/");
     };
+
     const categoryClick = (category) => {
         navigate("/" + category);
     }
@@ -100,6 +100,22 @@ const MemberHeader = ({ onCategorySelect }) => { // onCategorySelect prop 추가
                                     onClick={() => navigate("/manager/managerPage")}
                                 >
                                     매니저 페이지
+                                </button>
+                                <button
+                                    className="member-header-logout-button"
+                                    onClick={handleLogout}
+                                >
+                                    로그아웃
+                                </button>
+                            </>
+                        )}
+                        {role === 'ROLE_ADMIN' && (
+                            <>
+                                <button
+                                    className="member-header-mypage-button"
+                                    onClick={() => navigate("/admin/adminPage")}
+                                >
+                                    관리자 페이지
                                 </button>
                                 <button
                                     className="member-header-logout-button"

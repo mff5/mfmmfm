@@ -85,6 +85,7 @@ const MemberPayment = () => {
             })
                 .then(response => {
                     alert("결제가 완료되었습니다.");
+                    navigate('/member/memberPage?activeTab=reservations');
                 })
                 .catch(error => {
                     alert("결제 처리 중 오류가 발생했습니다."+error);
@@ -113,8 +114,8 @@ const MemberPayment = () => {
                     <h2 className="MemberPayment__sectionTitle">오피스 정보</h2>
                     <div className="MemberPayment__summary">
                         <p><strong>{office.title}</strong> 예약</p>
-                        <p>최대 {office.capacity}명 수용 가능</p>
-                        <p>하루 ₩{Number(office.price).toLocaleString('ko-KR')}</p>
+                        <p>최대 {office.capacity}명</p>
+                        <p>₩{Number(office.price).toLocaleString('ko-KR')} / 1일</p>
                     </div>
                     <div className="MemberPayment__costDetails">
                         <p>기본 가격 1일 ₩{Number(office.price).toLocaleString('ko-KR')}</p>

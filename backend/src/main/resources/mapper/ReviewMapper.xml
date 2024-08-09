@@ -9,7 +9,7 @@
         <result property="content" column="content"/>
         <result property="regDate" column="reg_date"/>
     </resultMap>
-    <select id="getReviews" resultMap="reviewResultMap">
+    <select id="getReviewsByOfficeNo" resultMap="reviewResultMap">
         select * from REVIEW where OFFICE_NO = #{officeNo}
     </select>
     <insert id="insertReview">
@@ -17,5 +17,11 @@
     </insert>
     <select id="getReviewsByMemberNo" resultMap="reviewResultMap">
         select * from REVIEW where MEMBER_NO = #{memberNo}
+    </select>
+    <select id="getCountByOfficeNo" resultType="int">
+        select count(*) from REVIEW where OFFICE_NO = #{officeNo}
+    </select>
+    <select id="getRatingSumByOfficeNo" parameterType="int" resultType="int">
+        select sum(rating) from REVIEW where OFFICE_NO = #{officeNo}
     </select>
 </mapper>

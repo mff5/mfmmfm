@@ -26,14 +26,14 @@ const OfficeItem = (office) => {
                     <h1>{office.title}</h1>
                     <div className="rating">
                         <MdStarRate />
-                        <span>{/* 여기에 평점 추가 가능 */}</span>
+                        <span>{office.averageRating}</span>
                     </div>
                 </div>
                 <div className="middle">
                     <p className="address">{office.address}</p>
                     <p className="zip-code">{office.zipCode}</p>
-                    <p className="capacity">최대인원 {office.capacity} 명</p>
-                    <p className="price"><b>₩{Number(office.price).toLocaleString('ko-KR')}/1일</b></p>
+                    <p className="capacity">최대 인원 {office.capacity} 명</p>
+                    <p className="price"><b>₩{Number(office.price).toLocaleString('ko-KR')} / 1일</b></p>
                     <p className="content-description">{office.content}</p>
                 </div>
             </div>

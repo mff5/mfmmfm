@@ -56,15 +56,14 @@ public class OfficeService {
         return officeMapper.getOfficeStatusCount(no);
     }
 
-    // 전체 목록 조회
-    public List<Office> getOffices(int no, int page, int size, Integer availability, String searchText) {
+    public List<Office> getOfficesByManagerNo(int managerNo, int page, int size, String availability, String searchText) {
         int offset = (page - 1) * size;
-        return officeMapper.getOffices(no, offset, size, availability, searchText);
+        return officeMapper.getOfficesByManagerNo(managerNo, offset, size, availability, searchText);
     }
 
     // 전체 개수 조회
-    public int getOfficeCount(int no, Integer availability, String searchText) {
-        return officeMapper.getOfficeCount(no, availability, searchText);
+    public int getOfficeCountByManagerNo(int no, String availability, String searchText) {
+        return officeMapper.getOfficeCountByManagerNo(no, availability, searchText);
     }
 
     // 오피스 no로 오피스 정보 삭제
@@ -79,15 +78,18 @@ public class OfficeService {
     public void insertOffice(Office office) {
         officeMapper.insertOffice(office);
     }
-    public List<Office> getAllOffices(int page, int size, Integer availability)    {
+    public List<Office> getAllOffices(int page, int size, String availability)    {
         int offset = (page - 1) * size;
         return officeMapper.getAllOffices(offset, size, availability);
     }
-    public List<Office> getByCategory(int page, int size, Integer availability, String category)    {
+    public List<Office> getByCategory(int page, int size, String availability, String category)    {
         int offset = (page - 1) * size;
         return officeMapper.getByCategory(offset, size, availability, category);
     }
     public boolean updateOffice(Office office) {
         return officeMapper.updateOffice(office) > 0;
+    }
+    public int getOfficeCount() {
+        return officeMapper.getOfficeCount();
     }
 }

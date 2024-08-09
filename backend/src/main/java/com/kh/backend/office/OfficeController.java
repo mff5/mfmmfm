@@ -10,8 +10,6 @@ import com.kh.backend.manager.Manager;
 import com.kh.backend.manager.ManagerService;
 import com.kh.backend.review.Review;
 import com.kh.backend.review.ReviewService;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -56,8 +54,8 @@ public class OfficeController {
     public Map<String, Object> getOfficeStatusPaged(@PathVariable int no,
                                                     @RequestParam(defaultValue = "1") int page,
                                                     @RequestParam(defaultValue = "5") int size) {
-        List<Office> offices = officeService.getOfficeStatusPaged(no, page, size); // 오피스 목록
-        int total = officeService.getOfficeStatusCount(no); // 오피스 수
+        List<Office> offices = officeService.getOfficeStatusPaged(no, page, size);
+        int total = officeService.getOfficeStatusCount(no);
 
         Map<String, Object> response = new HashMap<>();
         response.put("offices", offices);
@@ -68,7 +66,6 @@ public class OfficeController {
         return response;
     }
 
-    // 오피스 no로 오피스 정보 삭제
     @DeleteMapping("/manager/office/delete/{no}")
     public ResponseEntity<Void> deleteOffice(@PathVariable int no) {
         officeService.deleteOffice(no);
@@ -105,7 +102,7 @@ public class OfficeController {
         office.setTitleImg(titleImgUrl);
         office.setSubImg1(subImg1Url);
         office.setSubImg2(subImg2Url);
-        office.setAvailability(Integer.parseInt(availability));
+        office.setAvailability(availability);
 
 
 
@@ -141,6 +138,7 @@ public class OfficeController {
     @GetMapping("/manager/office/edit/{no}")
     public ResponseEntity<?> editOffice(@PathVariable int no) {
         Office office = officeService.getOffice(no);
+
         if (office != null) {
             return ResponseEntity.ok(office);
         } else {
@@ -171,9 +169,7 @@ public class OfficeController {
         office.setContent(content);
         office.setPrice(price);
         office.setCapacity(capacity);
-        office.setAvailability(Integer.parseInt(availability));
-
-
+        office.setAvailability(availability);
 
         try {
             officeService.updateOffice(office);
@@ -184,14 +180,17 @@ public class OfficeController {
 
     }
 
-    // availability, searchText에 따라 오피스 목록 조회
-    @GetMapping("/manager/office/{no}")
-    public Map<String, Object> getAllOffices(@PathVariable int no, @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) Integer availability,
+    @GetMapping("/manager/office/{managerNo}")
+    public Map<String, Object> getAllOffices(@PathVariable int managerNo, @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(defaultValue = "20") int size, @RequestParam(required = false) String availability,
                                              @RequestParam(required = false) String searchText) {
 
-        List<Office> offices = officeService.getOffices(no, page, size, availability, searchText); // 조건에 맞는 오피스 목록
-        int total = officeService.getOfficeCount(no, availability, searchText); // 조건에 맞는 오피스 수
+        List<Office> offices = officeService.getOfficesByManagerNo(managerNo, page, size, availability, searchText);
+        int total = officeService.getOfficeCountByManagerNo(managerNo, availability, searchText);
+
+        for (Office office : offices)   {
+            office.setAverageRating(reviewService.getAverageRatingByOfficeNo(office.getNo()));
+        }
 
         Map<String, Object> response = new HashMap<>();
         response.put("offices", offices);
@@ -205,14 +204,20 @@ public class OfficeController {
     @GetMapping("/offices")
     public Map<String, Object> getOffices(@RequestParam(defaultValue = "1") int page,
                                           @RequestParam(defaultValue = "50") int size,
-                                          @RequestParam(required = false) Integer availability,
+                                          @RequestParam(required = false) String availability,
                                           @RequestParam(required = false) String category) {
 
-        List<Office> offices;
+        List<Office> offices = new ArrayList<>();
         if (category == null || category.equalsIgnoreCase("All")) {
             offices = officeService.getAllOffices(page, size, availability);
+            for (Office office : offices)   {
+                office.setAverageRating(reviewService.getAverageRatingByOfficeNo(office.getNo()));
+            }
         } else {
             offices = officeService.getByCategory(page, size, availability, category);
+            for (Office office : offices)   {
+                office.setAverageRating(reviewService.getAverageRatingByOfficeNo(office.getNo()));
+            }
         }
 
         Map<String, Object> response = new HashMap<>();
@@ -225,9 +230,10 @@ public class OfficeController {
     @GetMapping("/office/{no}")
     public ResponseEntity<?> getOffice(@PathVariable int no) {
         Office office = officeService.getOffice(no);
+        office.setAverageRating(reviewService.getAverageRatingByOfficeNo(office.getNo()));
         int managerNo = office.getManagerNo();
         Manager manager = managerService.findByNo(managerNo);
-        List<Review> reviews = reviewService.getReviews(no);
+        List<Review> reviews = reviewService.getReviewsByOfficeNo(no);
         if (office != null) {
             Map<String, Object> response = new HashMap<>();
             response.put("office", office);
@@ -237,5 +243,10 @@ public class OfficeController {
         } else {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+    @GetMapping("/admin/officeStats")
+    public ResponseEntity<?> officeStats()  {
+        int totalOffices = officeService.getOfficeCount();
+        return ResponseEntity.ok().build();
     }
 }

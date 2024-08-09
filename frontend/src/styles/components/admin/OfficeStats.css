@@ -1,0 +1,77 @@
+.office-stats-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    min-height: calc(100vh - 100px);
+}
+
+.office-stats-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 40px 20px;
+}
+
+.office-stats-container > h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.office-stats-container .chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px; /* 여백을 충분히 줍니다 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 이동과 그림자 변화 */
+}
+
+.office-stats-container .chart-container > h3 {
+    color: #e91e63;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.office-stats-container .chart-container .doughnut-chart {
+    width: 300px;
+    height: 300px;
+}
+
+.office-stats-container .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 두 개의 열로 구성 */
+    gap: 20px; /* 항목 간의 간격 */
+    margin-top: 20px; /* 차트와 통계 항목 간의 간격 추가 */
+}
+
+.office-stats-container .stat-item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 이동과 그림자 변화 */
+}
+
+/* 호버 시 통계 항목 효과 */
+.office-stats-container .stat-item:hover {
+    transform: translateY(-10px); /* 위로 10px 이동 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 그림자 강도를 증가 */
+}
+
+.office-stats-container .stat-item > h3 {
+    color: #e91e63;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.office-stats-container .stat-item > p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}

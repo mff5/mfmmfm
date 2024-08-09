@@ -121,7 +121,7 @@ const ManagerOffice = () => {
                 <th>번호</th>
                 <th>이름</th>
                 <th>주소</th>
-                <th>수용인원</th>
+                <th>최대 인원</th>
                 <th>가격(원)</th>
                 <th>상태</th>
                 <th>등록일</th>

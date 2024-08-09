@@ -16,7 +16,7 @@ const Main = () => {
         const params = {
           page: 1,
           size: 100,
-          availability: 1,
+          availability: '1',
           category: category
         };
         const response = await instance.get('http://localhost:8080/offices', { params });

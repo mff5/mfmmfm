@@ -9,6 +9,7 @@ public class Office {
     private int no;
     private int managerNo;
     private String title;
+    private Double averageRating;
     private String address;
     private String zipCode;
     private Double latitude;
@@ -19,6 +20,6 @@ public class Office {
     private String titleImg;
     private String subImg1;
     private String subImg2;
-    private int availability;
+    private String availability;
     private Date regDate;
 }
